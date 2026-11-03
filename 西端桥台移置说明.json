@@ -1,0 +1,30 @@
+{
+  "source": "SII-60C 桥台一般构造.dwg / -5号桥台",
+  "drawing_station": 527.65,
+  "model_station": 627.32,
+  "drawing_number": -5,
+  "model_label": "西端桥台（位置/编号待核对）",
+  "vertical_shift": 2.953600000000002,
+  "reason": "用户选择保留现有西端，不补跨；以现有板梁底与14.8cm支承高度调整台帽中心标高",
+  "cap_width": 18.6,
+  "cap_longitudinal": 1.6,
+  "backwall_width": 18,
+  "backwall_thickness": 0.35,
+  "backwall_height": 1.24,
+  "sidewall_length": 3,
+  "sidewall_thickness": 0.3,
+  "pile_count": 4,
+  "pile_diameter": 1.4,
+  "pile_spacing": 4.7,
+  "pile_length": 46,
+  "drawing_elevations": {
+    "cap_bottom": 1.598,
+    "cap_top": 2.938,
+    "back_top": 4.178,
+    "pile_bottom": -44.402
+  },
+  "limits": [
+    "西端结构为移置参考形状，非SII-60C原位模型。",
+    "局部槽口、支座和搭板未细化，横坡方向未配准地形。"
+  ]
+}

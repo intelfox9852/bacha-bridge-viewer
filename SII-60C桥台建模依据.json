@@ -1,0 +1,37 @@
+{
+  "source": "SII-60C 桥台一般构造.dwg",
+  "east": {
+    "number": 30,
+    "station": 1388.34,
+    "cap_size": [
+      5.4,
+      20,
+      1.5
+    ],
+    "cap_top": 2.243,
+    "cap_bottom": 0.743,
+    "seat_top": 5.372,
+    "back_top": 6.62,
+    "piles": 10,
+    "pile_diameter": 1.2,
+    "pile_length": 40,
+    "pile_bottom": -39.257,
+    "pile_spacing": [
+      3.1,
+      4.25
+    ]
+  },
+  "west_transplanted": {
+    "drawing_number": -5,
+    "drawing_station": 527.65,
+    "existing_endpoint": 627.32,
+    "pile_diameter": 1.4,
+    "pile_count": 4,
+    "pile_length": 46
+  },
+  "limitations": [
+    "30号台按下方带第6条说明的图框；文件内上方另有30号台图，部分顶标高不同。",
+    "桥台横坡及侧墙斜坡顶、背墙槽口、支座垫石和泄水孔尚未精细还原。",
+    "用户选择保留西端K0+627.320，按-5号台形状移置；位置编号待核对，详见西端桥台移置说明.json。"
+  ]
+}

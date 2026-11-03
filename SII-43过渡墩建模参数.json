@@ -1,0 +1,49 @@
+{
+  "source": "D:/AITest/BCDQ/SII-43 主桥过渡墩一般构造.dwg",
+  "drawing_units": "cm except marked elevations/stations",
+  "wall_width": 11.5,
+  "wall_thickness": 2.5,
+  "cap_size": [
+    6.5,
+    12.6,
+    2.5
+  ],
+  "cap_plan_corner_radius": 1.0,
+  "head_width": 18.6,
+  "head_thickness": 0.9,
+  "notch_width": 1.4,
+  "notch_depth": 0.4,
+  "pile_diameter": 1.5,
+  "pile_length": 52,
+  "piles_spacing": [
+    4,
+    5
+  ],
+  "piers": [
+    {
+      "pier": 13,
+      "station": 887.89,
+      "base": 2.8,
+      "wall_top": 11.137,
+      "head_bottom": 11.082,
+      "head_top": 13.1,
+      "pile_bottom": -51.7,
+      "direction": -1
+    },
+    {
+      "pier": 16,
+      "station": 1107.35,
+      "base": 2.2,
+      "wall_top": 11.215,
+      "head_bottom": 11.162,
+      "head_top": 13.18,
+      "pile_bottom": -52.3,
+      "direction": 1
+    }
+  ],
+  "notes": [
+    "16号墩墙顶标高立面标11.217、侧面标11.215；本版采用侧面11.215，需复核2mm差异。",
+    "墙身为贯通实体，四个竖向角切除20×20cm；局部垫石及预埋细部尚未建。",
+    "与桥面、支座的对位需结合桥型图复核。"
+  ]
+}

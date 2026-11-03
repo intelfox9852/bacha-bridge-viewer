@@ -1,0 +1,37 @@
+{
+  "source": "D:/AITest/BCDQ/SII-39 主桥主墩一般构造.dwg",
+  "wall_width": 11.5,
+  "wall_thickness": 2.5,
+  "wall_corner_cut": 0.2,
+  "top_notch": [
+    1.4,
+    0.4
+  ],
+  "cap_longitudinal": 12,
+  "cap_transverse": 16.5,
+  "cap_height": 3.5,
+  "cap_corner_radius": 1,
+  "pile_diameter": 1.8,
+  "pile_length": 85,
+  "pile_spacing": 4.5,
+  "piers": [
+    {
+      "pier": 14,
+      "station": 947.6,
+      "base": -0.7,
+      "top": 8.624,
+      "pile_bottom": -89.2
+    },
+    {
+      "pier": 15,
+      "station": 1047.6,
+      "base": -2.1,
+      "top": 8.661,
+      "pile_bottom": -90.6
+    }
+  ],
+  "notes": [
+    "图纸注明：除标高以米计，其余尺寸厘米。",
+    "墩顶支座垫石及预埋细部尚未细化。"
+  ]
+}
