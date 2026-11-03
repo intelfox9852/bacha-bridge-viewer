@@ -1,0 +1,438 @@
+{
+  "source": "SII-56C / SII-57C",
+  "width": 17.6,
+  "longitudinal_thickness": 1.65,
+  "central_depth": 1.2,
+  "end_depth": 0.65,
+  "bottom_shoulder_width": 16,
+  "column_centers": [
+    -7.4,
+    -2.5,
+    2.5,
+    7.4
+  ],
+  "north_grade": -0.01,
+  "south_grade": -0.015,
+  "piers": [
+    {
+      "number": -4,
+      "station": 547.26,
+      "h1": 3.475,
+      "column_tops": [
+        2.349,
+        2.3,
+        2.238,
+        2.164
+      ],
+      "base": null,
+      "pile_bottom": -44.799,
+      "stage": "pile_bent"
+    },
+    {
+      "number": -3,
+      "station": 567.26,
+      "h1": 4.059,
+      "column_tops": [
+        2.933,
+        2.884,
+        2.822,
+        2.748
+      ],
+      "base": null,
+      "pile_bottom": -52.215,
+      "stage": "pile_bent"
+    },
+    {
+      "number": -2,
+      "station": 587.26,
+      "h1": 4.659,
+      "column_tops": [
+        3.533,
+        3.484,
+        3.422,
+        3.348
+      ],
+      "base": null,
+      "pile_bottom": -51.615,
+      "stage": "pile_bent"
+    },
+    {
+      "number": -1,
+      "station": 607.26,
+      "h1": 5.259,
+      "column_tops": [
+        4.133,
+        4.084,
+        4.022,
+        3.948
+      ],
+      "base": 2.3,
+      "pile_bottom": -51.7,
+      "stage": "new"
+    },
+    {
+      "number": 0,
+      "station": 627.32,
+      "h1": 5.822,
+      "column_tops": [
+        4.696,
+        4.647,
+        4.585,
+        4.511
+      ],
+      "base": 2.8,
+      "pile_bottom": -51.2,
+      "stage": "new"
+    },
+    {
+      "number": 1,
+      "station": 647.3800000000001,
+      "h1": 6.462,
+      "column_tops": [
+        5.336,
+        5.287,
+        5.225,
+        5.151
+      ],
+      "base": 2.8,
+      "pile_bottom": -51.2,
+      "stage": "new"
+    },
+    {
+      "number": 2,
+      "station": 667.3800000000001,
+      "h1": 7.062,
+      "column_tops": [
+        5.936,
+        5.887,
+        5.825,
+        5.751
+      ],
+      "base": 2.8,
+      "pile_bottom": -51.2,
+      "stage": "new"
+    },
+    {
+      "number": 3,
+      "station": 687.3800000000001,
+      "h1": 7.662,
+      "column_tops": [
+        6.536,
+        6.487,
+        6.425,
+        6.351
+      ],
+      "base": 2.8,
+      "pile_bottom": -49.2,
+      "stage": "new"
+    },
+    {
+      "number": 4,
+      "station": 707.4000000000001,
+      "h1": 8.224,
+      "column_tops": [
+        7.098,
+        7.049,
+        6.987,
+        6.913
+      ],
+      "base": 2.9,
+      "pile_bottom": -49.1,
+      "stage": "new"
+    },
+    {
+      "number": 5,
+      "station": 727.4200000000001,
+      "h1": 8.864,
+      "column_tops": [
+        7.738,
+        7.689,
+        7.627,
+        7.553
+      ],
+      "base": 2.9,
+      "pile_bottom": -47.1,
+      "stage": "new"
+    },
+    {
+      "number": 6,
+      "station": 747.4200000000001,
+      "h1": 9.464,
+      "column_tops": [
+        8.338,
+        8.289,
+        8.227,
+        8.153
+      ],
+      "base": 2.9,
+      "pile_bottom": -47.1,
+      "stage": "new"
+    },
+    {
+      "number": 7,
+      "station": 767.4200000000001,
+      "h1": 10.064,
+      "column_tops": [
+        8.938,
+        8.889,
+        8.827,
+        8.753
+      ],
+      "base": 2.9,
+      "pile_bottom": -47.1,
+      "stage": "new"
+    },
+    {
+      "number": 8,
+      "station": 787.48,
+      "h1": 10.626,
+      "column_tops": [
+        9.5,
+        9.451,
+        9.389,
+        9.315
+      ],
+      "base": 3.0,
+      "pile_bottom": -47.0,
+      "stage": "new"
+    },
+    {
+      "number": 9,
+      "station": 807.54,
+      "h1": 11.267,
+      "column_tops": [
+        10.141,
+        10.092,
+        10.03,
+        9.956
+      ],
+      "base": 3.1,
+      "pile_bottom": -46.9,
+      "stage": "new"
+    },
+    {
+      "number": 10,
+      "station": 827.54,
+      "h1": 11.828,
+      "column_tops": [
+        10.702,
+        10.653,
+        10.591,
+        10.517
+      ],
+      "base": 3.1,
+      "pile_bottom": -46.9,
+      "stage": "new"
+    },
+    {
+      "number": 11,
+      "station": 847.54,
+      "h1": 12.328,
+      "column_tops": [
+        11.202,
+        11.153,
+        11.091,
+        11.017
+      ],
+      "base": 3.0,
+      "pile_bottom": -47.0,
+      "stage": "new"
+    },
+    {
+      "number": 12,
+      "station": 867.54,
+      "h1": 12.766,
+      "column_tops": [
+        11.64,
+        11.591,
+        11.529,
+        11.455
+      ],
+      "base": 2.9,
+      "pile_bottom": -47.1,
+      "stage": "new"
+    },
+    {
+      "number": 17,
+      "station": 1127.7399999999998,
+      "h1": 12.861,
+      "column_tops": [
+        11.55,
+        11.624,
+        11.624,
+        11.55
+      ],
+      "base": 2.2,
+      "pile_bottom": -49.8,
+      "stage": "existing_with_topping"
+    },
+    {
+      "number": 18,
+      "station": 1147.7399999999998,
+      "h1": 12.437,
+      "column_tops": [
+        11.126,
+        11.2,
+        11.2,
+        11.126
+      ],
+      "base": 2.2,
+      "pile_bottom": -49.8,
+      "stage": "existing_with_topping"
+    },
+    {
+      "number": 19,
+      "station": 1167.7399999999998,
+      "h1": 11.952,
+      "column_tops": [
+        10.641,
+        10.715,
+        10.715,
+        10.641
+      ],
+      "base": 2.2,
+      "pile_bottom": -47.8,
+      "stage": "existing_with_topping"
+    },
+    {
+      "number": 20,
+      "station": 1187.7399999999998,
+      "h1": 11.405,
+      "column_tops": [
+        10.094,
+        10.168,
+        10.168,
+        10.094
+      ],
+      "base": 2.2,
+      "pile_bottom": -47.8,
+      "stage": "existing_with_topping"
+    },
+    {
+      "number": 21,
+      "station": 1207.7999999999997,
+      "h1": 10.768,
+      "column_tops": [
+        9.457,
+        9.531,
+        9.531,
+        9.457
+      ],
+      "base": 2.2,
+      "pile_bottom": -53.8,
+      "stage": "existing_with_topping"
+    },
+    {
+      "number": 22,
+      "station": 1227.8599999999997,
+      "h1": 10.205,
+      "column_tops": [
+        8.894,
+        8.968,
+        8.968,
+        8.894
+      ],
+      "base": 2.2,
+      "pile_bottom": -53.8,
+      "stage": "existing_with_topping"
+    },
+    {
+      "number": 23,
+      "station": 1247.8599999999997,
+      "h1": 9.605,
+      "column_tops": [
+        8.294,
+        8.368,
+        8.368,
+        8.294
+      ],
+      "base": 2.2,
+      "pile_bottom": -53.8,
+      "stage": "existing_with_topping"
+    },
+    {
+      "number": 24,
+      "station": 1267.8599999999997,
+      "h1": 9.005,
+      "column_tops": [
+        7.694,
+        7.768,
+        7.768,
+        7.694
+      ],
+      "base": 2.2,
+      "pile_bottom": -53.8,
+      "stage": "existing_with_topping"
+    },
+    {
+      "number": 25,
+      "station": 1287.8599999999997,
+      "h1": 8.405,
+      "column_tops": [
+        7.094,
+        7.168,
+        7.168,
+        7.094
+      ],
+      "base": 2.2,
+      "pile_bottom": -49.8,
+      "stage": "existing_with_topping"
+    },
+    {
+      "number": 26,
+      "station": 1307.9199999999996,
+      "h1": 7.764,
+      "column_tops": [
+        6.453,
+        6.527,
+        6.527,
+        6.453
+      ],
+      "base": 2.2,
+      "pile_bottom": -49.8,
+      "stage": "existing_with_topping"
+    },
+    {
+      "number": 27,
+      "station": 1327.9799999999996,
+      "h1": 7.202,
+      "column_tops": [
+        5.891,
+        5.965,
+        5.965,
+        5.891
+      ],
+      "base": 2.2,
+      "pile_bottom": -49.8,
+      "stage": "existing_with_topping"
+    },
+    {
+      "number": 28,
+      "station": 1347.9799999999996,
+      "h1": 6.602,
+      "column_tops": [
+        5.291,
+        5.365,
+        5.365,
+        5.291
+      ],
+      "base": 2.2,
+      "pile_bottom": -47.8,
+      "stage": "existing_with_topping"
+    },
+    {
+      "number": 29,
+      "station": 1367.9799999999996,
+      "h1": 6.002,
+      "column_tops": [
+        4.691,
+        4.765,
+        4.765,
+        4.691
+      ],
+      "base": 2.2,
+      "pile_bottom": -47.8,
+      "stage": "existing_with_topping"
+    }
+  ]
+}

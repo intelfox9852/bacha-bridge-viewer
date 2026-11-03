@@ -1,0 +1,436 @@
+{
+  "2": {
+    "selected": "SII-2 桥位平面图.dwg",
+    "versions": [
+      "SII-2 桥位平面图.dwg"
+    ]
+  },
+  "3": {
+    "selected": "SII-3B 主要工程数量表.dwg",
+    "versions": [
+      "SII-3 主要工程数量表.dwg",
+      "SII-3B 主要工程数量表.dwg"
+    ]
+  },
+  "4": {
+    "selected": "SII-4C 桥型布置图.dwg",
+    "versions": [
+      "SII-4 桥型布置图.dwg",
+      "SII-4B 桥型布置图.dwg",
+      "SII-4C 桥型布置图.dwg"
+    ]
+  },
+  "5": {
+    "selected": "SII-5 工程地质纵断面.dwg",
+    "versions": [
+      "SII-5 工程地质纵断面.dwg"
+    ]
+  },
+  "6": {
+    "selected": "SII-6 桩位坐标表.dwg",
+    "versions": [
+      "SII-6 桩位坐标表.dwg"
+    ]
+  },
+  "7": {
+    "selected": "SII-7A 主桥箱梁一般构造.dwg",
+    "versions": [
+      "SII-7 主桥箱梁一般构造.dwg",
+      "SII-7A 主桥箱梁一般构造.dwg"
+    ]
+  },
+  "8": {
+    "selected": "SII-8 主桥箱梁纵向预应力钢束布置.dwg",
+    "versions": [
+      "SII-8 主桥箱梁纵向预应力钢束布置.dwg"
+    ]
+  },
+  "9": {
+    "selected": "SII-9 主桥箱梁纵向预应力钢束大样.dwg",
+    "versions": [
+      "SII-9 主桥箱梁纵向预应力钢束大样.dwg"
+    ]
+  },
+  "10": {
+    "selected": "SII-10 主桥箱梁纵向预应力钢束横断面.dwg",
+    "versions": [
+      "SII-10 主桥箱梁纵向预应力钢束横断面.dwg"
+    ]
+  },
+  "27": {
+    "selected": "SII-27A 主桥箱梁横梁预应力布置.dwg",
+    "versions": [
+      "SII-27 主桥箱梁横梁预应力布置.dwg",
+      "SII-27A 主桥箱梁横梁预应力布置.dwg"
+    ]
+  },
+  "28": {
+    "selected": "SII-28 主桥箱梁端横梁钢筋构造.dwg",
+    "versions": [
+      "SII-28 主桥箱梁端横梁钢筋构造.dwg"
+    ]
+  },
+  "29": {
+    "selected": "SII-29 主桥箱梁下弯束锚固槽口钢筋构造.dwg",
+    "versions": [
+      "SII-29 主桥箱梁下弯束锚固槽口钢筋构造.dwg"
+    ]
+  },
+  "30": {
+    "selected": "SII-30 主桥箱梁梁端封锚钢筋构造.dwg",
+    "versions": [
+      "SII-30 主桥箱梁梁端封锚钢筋构造.dwg"
+    ]
+  },
+  "31": {
+    "selected": "SII-31 主桥墩梁临时固结构造.dwg",
+    "versions": [
+      "SII-31 主桥墩梁临时固结构造.dwg"
+    ]
+  },
+  "32": {
+    "selected": "SII-32 主桥箱梁横、竖向预应力钢束布置.dwg",
+    "versions": [
+      "SII-32 主桥箱梁横、竖向预应力钢束布置.dwg"
+    ]
+  },
+  "33": {
+    "selected": "SII-33 主桥箱梁齿板一般构造.dwg",
+    "versions": [
+      "SII-33 主桥箱梁齿板一般构造.dwg"
+    ]
+  },
+  "34": {
+    "selected": "SII-34 主桥箱梁齿板钢筋构造.dwg",
+    "versions": [
+      "SII-34 主桥箱梁齿板钢筋构造.dwg"
+    ]
+  },
+  "35": {
+    "selected": "SII-35 主桥箱梁齿板封锚及锚下加强钢筋构造.dwg",
+    "versions": [
+      "SII-35 主桥箱梁齿板封锚及锚下加强钢筋构造.dwg"
+    ]
+  },
+  "36": {
+    "selected": "SII-36 主桥箱梁合龙段临时刚接构造.dwg",
+    "versions": [
+      "SII-36 主桥箱梁合龙段临时刚接构造.dwg"
+    ]
+  },
+  "37": {
+    "selected": "SII-37 主桥箱梁支座安装大样.dwg",
+    "versions": [
+      "SII-37 主桥箱梁支座安装大样.dwg"
+    ]
+  },
+  "38": {
+    "selected": "SII-38 主桥上部构造施工流程示意.dwg",
+    "versions": [
+      "SII-38 主桥上部构造施工流程示意.dwg"
+    ]
+  },
+  "39": {
+    "selected": "SII-39 主桥主墩一般构造.dwg",
+    "versions": [
+      "SII-39 主桥主墩一般构造.dwg"
+    ]
+  },
+  "40": {
+    "selected": "SII-40 主桥主墩墩身钢筋构造.dwg",
+    "versions": [
+      "SII-40 主桥主墩墩身钢筋构造.dwg"
+    ]
+  },
+  "41": {
+    "selected": "SII-41 主桥主墩承台钢筋构造.dwg",
+    "versions": [
+      "SII-41 主桥主墩承台钢筋构造.dwg"
+    ]
+  },
+  "42": {
+    "selected": "SII-42 主桥主墩桩基钢筋构造.dwg",
+    "versions": [
+      "SII-42 主桥主墩桩基钢筋构造.dwg"
+    ]
+  },
+  "43": {
+    "selected": "SII-43C 主桥过渡墩一般构造.dwg",
+    "versions": [
+      "SII-43 主桥过渡墩一般构造.dwg",
+      "SII-43C 主桥过渡墩一般构造.dwg"
+    ]
+  },
+  "44": {
+    "selected": "SII-44 主桥过渡墩墩身钢筋构造.dwg",
+    "versions": [
+      "SII-44 主桥过渡墩墩身钢筋构造.dwg"
+    ]
+  },
+  "45": {
+    "selected": "SII-45C 主桥过渡墩盖梁钢筋构造.dwg",
+    "versions": [
+      "SII-45 主桥过渡墩盖梁钢筋构造.dwg",
+      "SII-45C 主桥过渡墩盖梁钢筋构造.dwg"
+    ]
+  },
+  "46": {
+    "selected": "SII-46 主桥过渡墩承台钢筋构造.dwg",
+    "versions": [
+      "SII-46 主桥过渡墩承台钢筋构造.dwg"
+    ]
+  },
+  "47": {
+    "selected": "SII-47 主桥过渡墩桩基钢筋构造.dwg",
+    "versions": [
+      "SII-47 主桥过渡墩桩基钢筋构造.dwg"
+    ]
+  },
+  "48": {
+    "selected": "SII-48C 引桥上部构造横断面.dwg",
+    "versions": [
+      "SII-48 引桥上部构造横断面.dwg",
+      "SII-48A 引桥上部构造横断面.dwg",
+      "SII-48B 引桥上部构造横断面.dwg",
+      "SII-48C 引桥上部构造横断面.dwg"
+    ]
+  },
+  "49": {
+    "selected": "SII-49B 引桥预制板一般构造.dwg",
+    "versions": [
+      "SII-49 引桥预制板一般构造.dwg",
+      "SII-49A 引桥预制板一般构造.dwg",
+      "SII-49B 引桥预制板一般构造.dwg"
+    ]
+  },
+  "50": {
+    "selected": "SII-50B 引桥预制板钢筋构造.dwg",
+    "versions": [
+      "SII-50 引桥预制板钢筋构造.dwg",
+      "SII-50A 引桥预制板钢筋构造.dwg",
+      "SII-50B 引桥预制板钢筋构造.dwg"
+    ]
+  },
+  "51": {
+    "selected": "SII-51B 引桥空心板封头钢筋构造.dwg",
+    "versions": [
+      "SII-51 引桥空心板封头钢筋构造.dwg",
+      "SII-51A 引桥空心板封头钢筋构造.dwg",
+      "SII-51B 引桥空心板封头钢筋构造.dwg"
+    ]
+  },
+  "52": {
+    "selected": "SII-52B 引桥桥面现浇层钢筋布置.dwg",
+    "versions": [
+      "SII-52 引桥桥面现浇层钢筋布置.dwg",
+      "SII-52B 引桥桥面现浇层钢筋布置.dwg"
+    ]
+  },
+  "53": {
+    "selected": "SII-53B 引桥支座安装大样.dwg",
+    "versions": [
+      "SII-53 引桥支座安装大样.dwg",
+      "SII-53A 引桥支座安装大样.dwg",
+      "SII-53B 引桥支座安装大样.dwg"
+    ]
+  },
+  "54": {
+    "selected": "SII-54B 引桥支座预埋钢板构造.dwg",
+    "versions": [
+      "SII-54 引桥支座预埋钢板构造.dwg",
+      "SII-54A 引桥支座预埋钢板构造.dwg",
+      "SII-54B 引桥支座预埋钢板构造.dwg"
+    ]
+  },
+  "55": {
+    "selected": "SII-55B 引桥桥面连续构造.dwg",
+    "versions": [
+      "SII-55 引桥桥面连续构造.dwg",
+      "SII-55B 引桥桥面连续构造.dwg"
+    ]
+  },
+  "56": {
+    "selected": "SII-56C 引桥墩一般构造.dwg",
+    "versions": [
+      "SII-56 引桥墩一般构造.dwg",
+      "SII-56A 引桥墩一般构造.dwg",
+      "SII-56B 引桥墩一般构造.dwg",
+      "SII-56C 引桥墩一般构造.dwg"
+    ]
+  },
+  "57": {
+    "selected": "SII-57C 引桥桥墩盖梁钢筋构造.dwg",
+    "versions": [
+      "SII-57 引桥桥墩盖梁钢筋构造.dwg",
+      "SII-57A 引桥桥墩盖梁钢筋构造.dwg",
+      "SII-57B 引桥桥墩盖梁钢筋构造.dwg",
+      "SII-57C 引桥桥墩盖梁钢筋构造.dwg"
+    ]
+  },
+  "58": {
+    "selected": "SII-58C 引桥桥墩墩柱、桩基钢筋构造.dwg",
+    "versions": [
+      "SII-58 引桥桥墩墩柱、桩基钢筋构造.dwg",
+      "SII-58B 引桥桥墩墩柱、桩基钢筋构造.dwg",
+      "SII-58C 引桥桥墩墩柱、桩基钢筋构造.dwg"
+    ]
+  },
+  "59": {
+    "selected": "SII-59 引桥桥墩系梁钢筋构造.dwg",
+    "versions": [
+      "SII-59 引桥桥墩系梁钢筋构造.dwg"
+    ]
+  },
+  "60": {
+    "selected": "SII-60C 桥台一般构造.dwg",
+    "versions": [
+      "SII-60 桥台一般构造.dwg",
+      "SII-60B 桥台一般构造.dwg",
+      "SII-60C 桥台一般构造.dwg"
+    ]
+  },
+  "61": {
+    "selected": "SII-61C 桥台盖梁、背墙钢筋构造.dwg",
+    "versions": [
+      "SII-61 桥台盖梁、背墙钢筋构造.dwg",
+      "SII-61B 桥台盖梁、背墙钢筋构造.dwg",
+      "SII-61C 桥台盖梁、背墙钢筋构造.dwg"
+    ]
+  },
+  "62": {
+    "selected": "SII-62C 桥台台身、侧墙钢筋构造.dwg",
+    "versions": [
+      "SII-62 桥台台身钢筋构造.dwg",
+      "SII-62B 桥台台身钢筋构造.dwg",
+      "SII-62C 桥台台身、侧墙钢筋构造.dwg"
+    ]
+  },
+  "63": {
+    "selected": "SII-63B 桥台承台钢筋构造.dwg",
+    "versions": [
+      "SII-63 桥台承台钢筋构造.dwg",
+      "SII-63B 桥台承台钢筋构造.dwg"
+    ]
+  },
+  "64": {
+    "selected": "SII-64B 桥台桩基钢筋构造.dwg",
+    "versions": [
+      "SII-64 桥台桩基钢筋构造.dwg",
+      "SII-64B 桥台桩基钢筋构造.dwg"
+    ]
+  },
+  "65": {
+    "selected": "SII-65C 桥面铺装及防撞护栏一般构造.dwg",
+    "versions": [
+      "SII-65 桥面铺装及防撞护栏一般构造.dwg",
+      "SII-65A 桥面铺装及防撞护栏一般构造.dwg",
+      "SII-65B 桥面铺装及防撞护栏一般构造.dwg",
+      "SII-65C 桥面铺装及防撞护栏一般构造.dwg"
+    ]
+  },
+  "66": {
+    "selected": "SII-66C 防撞护栏钢筋构造.dwg",
+    "versions": [
+      "SII-66 防撞护栏钢筋构造.dwg",
+      "SII-66A 防撞护栏钢筋构造.dwg",
+      "SII-66B 防撞护栏钢筋构造.dwg",
+      "SII-66C 防撞护栏钢筋构造.dwg"
+    ]
+  },
+  "67": {
+    "selected": "SII-67B 伸缩缝预埋钢筋构造.dwg",
+    "versions": [
+      "SII-67 伸缩缝预埋钢筋构造.dwg",
+      "SII-67B 伸缩缝预埋钢筋构造.dwg"
+    ]
+  },
+  "68": {
+    "selected": "SII-68B 桥面排水构造.dwg",
+    "versions": [
+      "SII-68 桥面排水构造.dwg",
+      "SII-68A 桥面排水构造.dwg",
+      "SII-68B 桥面排水构造.dwg"
+    ]
+  },
+  "69": {
+    "selected": "SII-69 搭板一般构造及钢筋构造.dwg",
+    "versions": [
+      "SII-69 搭板一般构造及钢筋构造.dwg"
+    ]
+  },
+  "70": {
+    "selected": "SII-70B 照明灯布置示意图.dwg",
+    "versions": [
+      "SII-70 照明灯布置示意图.dwg",
+      "SII-70B 照明灯布置示意图.dwg"
+    ]
+  },
+  "71": {
+    "selected": "SII-71 护栏上照明灯杆基础一般构造.dwg",
+    "versions": [
+      "SII-71 护栏上照明灯杆基础一般构造.dwg"
+    ]
+  },
+  "72": {
+    "selected": "SII-72B 护栏上照明灯杆基础钢筋布置.dwg",
+    "versions": [
+      "SII-72 护栏上照明灯杆基础钢筋布置.dwg",
+      "SII-72B 护栏上照明灯杆基础钢筋布置.dwg"
+    ]
+  },
+  "73": {
+    "selected": "SII-73B 护栏上照明灯杆基础设施大样.dwg",
+    "versions": [
+      "SII-73 护栏上照明灯杆基础设施大样.dwg",
+      "SII-73B 护栏上照明灯杆基础设施大样.dwg"
+    ]
+  },
+  "74": {
+    "selected": "SII-74 护栏上照明灯设施预埋件安装图.dwg",
+    "versions": [
+      "SII-74 护栏上照明灯设施预埋件安装图.dwg"
+    ]
+  },
+  "75": {
+    "selected": "SII-75A 梯道一般构造.dwg",
+    "versions": [
+      "SII-75 梯道一般构造.dwg",
+      "SII-75A 梯道一般构造.dwg"
+    ]
+  },
+  "76": {
+    "selected": "SII-76C 梯道钢筋构造图.dwg",
+    "versions": [
+      "SII-76 梯道钢筋构造图.dwg",
+      "SII-76C 梯道钢筋构造图.dwg"
+    ]
+  },
+  "77": {
+    "selected": "SII-77C 梯道墩身桩基配筋.dwg",
+    "versions": [
+      "SII-77 梯道墩身桩基配筋.dwg",
+      "SII-77C 梯道墩身桩基配筋.dwg"
+    ]
+  },
+  "78": {
+    "selected": "SII-78C 梯道栏杆构造.dwg",
+    "versions": [
+      "SII-78 梯道栏杆构造.dwg",
+      "SII-78C 梯道栏杆构造.dwg"
+    ]
+  },
+  "79": {
+    "selected": "SII-79 箱梁抗震挡块构造.dwg",
+    "versions": [
+      "SII-79 箱梁抗震挡块构造.dwg"
+    ]
+  },
+  "80": {
+    "selected": "SII-80B 引桥桥墩锚栓构造.dwg",
+    "versions": [
+      "SII-80 引桥桥墩锚栓构造.dwg",
+      "SII-80A 引桥桥墩锚栓构造.dwg",
+      "SII-80B 引桥桥墩锚栓构造.dwg"
+    ]
+  }
+}

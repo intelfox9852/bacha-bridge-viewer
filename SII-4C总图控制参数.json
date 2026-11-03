@@ -1,0 +1,171 @@
+{
+  "source": "SII-4C 桥型布置图.dwg",
+  "start": 524.2,
+  "end": 1391.04,
+  "west_span_count": 18,
+  "main_spans": [
+    60,
+    100,
+    60
+  ],
+  "east_span_count": 14,
+  "grade_table": [
+    {
+      "station": 524.2,
+      "elevation": 3.967
+    },
+    {
+      "station": 527.2,
+      "elevation": 4.057
+    },
+    {
+      "station": 547.26,
+      "elevation": 4.668
+    },
+    {
+      "station": 567.26,
+      "elevation": 5.268
+    },
+    {
+      "station": 587.26,
+      "elevation": 5.868
+    },
+    {
+      "station": 607.26,
+      "elevation": 6.468
+    },
+    {
+      "station": 627.32,
+      "elevation": 7.07
+    },
+    {
+      "station": 647.38,
+      "elevation": 7.671
+    },
+    {
+      "station": 667.38,
+      "elevation": 8.271
+    },
+    {
+      "station": 687.38,
+      "elevation": 8.871
+    },
+    {
+      "station": 707.4,
+      "elevation": 9.472
+    },
+    {
+      "station": 727.42,
+      "elevation": 10.073
+    },
+    {
+      "station": 747.42,
+      "elevation": 10.673
+    },
+    {
+      "station": 767.42,
+      "elevation": 11.273
+    },
+    {
+      "station": 787.48,
+      "elevation": 11.874
+    },
+    {
+      "station": 807.54,
+      "elevation": 12.476
+    },
+    {
+      "station": 827.54,
+      "elevation": 13.037
+    },
+    {
+      "station": 847.54,
+      "elevation": 13.537
+    },
+    {
+      "station": 867.54,
+      "elevation": 13.976
+    },
+    {
+      "station": 887.6,
+      "elevation": 14.354
+    },
+    {
+      "station": 947.6,
+      "elevation": 15.114
+    },
+    {
+      "station": 1047.6,
+      "elevation": 15.151
+    },
+    {
+      "station": 1107.64,
+      "elevation": 14.434
+    },
+    {
+      "station": 1127.74,
+      "elevation": 14.07
+    },
+    {
+      "station": 1147.74,
+      "elevation": 13.646
+    },
+    {
+      "station": 1167.74,
+      "elevation": 13.161
+    },
+    {
+      "station": 1187.74,
+      "elevation": 12.614
+    },
+    {
+      "station": 1207.8,
+      "elevation": 12.016
+    },
+    {
+      "station": 1227.8600000000001,
+      "elevation": 11.414
+    },
+    {
+      "station": 1247.8600000000001,
+      "elevation": 10.814
+    },
+    {
+      "station": 1267.8600000000001,
+      "elevation": 10.214
+    },
+    {
+      "station": 1287.8600000000001,
+      "elevation": 9.614
+    },
+    {
+      "station": 1307.92,
+      "elevation": 9.012
+    },
+    {
+      "station": 1327.98,
+      "elevation": 8.411
+    },
+    {
+      "station": 1347.98,
+      "elevation": 7.811
+    },
+    {
+      "station": 1367.98,
+      "elevation": 7.211
+    },
+    {
+      "station": 1388.04,
+      "elevation": 6.609
+    },
+    {
+      "station": 1391.04,
+      "elevation": 6.519
+    }
+  ],
+  "notes": [
+    "总体布置优先于计算工作簿与说明书。",
+    "527.200/1388.040为总图布置控制位置，527.650/1388.340为SII-60C承台中心。",
+    "局部横断面变化、平面曲线与地形坐标配准仍待深化；端部耳墙尚未精细恢复。"
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "revision": "b7c326ff0b6f",
+  "updated_utc": "2026-11-03T09:06:55.747306+00:00",
+  "components": 6073,
+  "render_batches": 14,
+  "geometry_sha256": "9083e40ad5c2a40352cf6aca0f44227a9cc9e823119cfc65f282e2084f1b060f",
+  "files": {
+    "geometry.json": "9083e40ad5c2a40352cf6aca0f44227a9cc9e823119cfc65f282e2084f1b060f",
+    "geometry.json.gz": "c238e0bb28502329ffa8cd7c2cbb23da29be85f415c927f71bb49c1d4dedef13",
+    "gpu_viewer.js": "4ba8bc944d157d2cdb358070feaa025e0b52f8d8e19eb7b4b4f6c7329169035e",
+    "墩台编号.json": "a51ab50e1747593541720eef9c2622e00139634a1389abc32d74e289d11c2266",
+    "上部构造剖面预览.json": "f72bbaf8700c5a4e8570cdbe3e8b5b09019cb38a3727af166f7c88c1ec648e94",
+    "上部结构一般构造参数.json": "0453ddd48dd270691c108741dc0a13cd1db1e9c37c141c1e37038c29bcb4c7a7",
+    "建模依据与待核验项.txt": "499dbb16a1fd8e413aeff1d48f558857038ef6be0eff18216b674d7170189c8c",
+    "图纸版本选用表.json": "81ae66406cbdbef9f7b2da835d89a4604a1b7bb3b95e522e6c8813644d717679",
+    "护栏C版截面.json": "63d487058d2327ce9df8854ae841f0a139571a729eabee55247b756948962d9b",
+    "引桥盖梁C版参数.json": "c1cd65246080c91144c3e283d8633495312136c63510e19bd647374758d88373",
+    "纵向钢束核对说明.txt": "ca69463e741d8171d6badc64a11c41cf6e0bb6a003089813683395c7b789b96e",
+    "纵向钢束数量核对.csv": "5d5588f4955721484837e56a780fbd1a604a935ea9a45fec1c43875de2063d45",
+    "SII-39主墩建模参数.json": "e896e5078d8e415c4aa7a7f05b7e446ac341f184ad5f8b319391e2f346f9d6a5",
+    "SII-43过渡墩建模参数.json": "d8e1da47405a324154ff78004acf7bdfd5e05d19f5654ac14685f1dcef2b9720",
+    "SII-4C总图控制参数.json": "3ddc63489987e00acabd2f9f24c656c6d041c1557433a5c0ec9f7d00f7e1cd41",
+    "SII-60C桥台建模依据.json": "2ee2751e1281140fee30dd15d2d54dc9cb296052bf49f825a37cff66343451f7",
+    "西端桥台移置说明.json": "f96db2d38ec69a963c6548b56b323ad9682e0897688e95974b39af391ec479d8",
+    "index.html": "b6414b478d99696fb48fa76f0f5d7afd909d56e74ac59357d785e8d7ec32d823"
+  }
+}
