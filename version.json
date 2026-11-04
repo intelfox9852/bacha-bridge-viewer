@@ -1,6 +1,6 @@
 {
-  "revision": "caf711ec5d39",
-  "updated_utc": "2026-11-04T05:56:59.570590+00:00",
+  "revision": "a4fb60373ede",
+  "updated_utc": "2026-11-04T06:19:49.903762+00:00",
   "components": 3422,
   "render_batches": 15,
   "bearing_plinths": 2184,
@@ -11,11 +11,11 @@
     "节段与联划分.json": "cefdce59ad8cc3355aaa0e3a647bdb68aeb8f16201c1331bcea39d4961c087db",
     "geometry.json": "efcce382aed15fd4b688a92bdc7f8f3ff7217208dd4fe92ea173f9afbd8eb4bd",
     "geometry.json.gz": "7dc4a70bc31048edbcf8b4d28d498bd02d640d4594abcefe715cf00e23fdba6f",
-    "gpu_viewer.js": "b2f49365ea422b195c5ac9606957c7e9c8d50e03d4c01ff0223975914cc364cf",
+    "gpu_viewer.js": "36b5b4ddf9071731e5014ce644cca69917188df7a529ebbca4b3828371474b4d",
     "墩台编号.json": "a51ab50e1747593541720eef9c2622e00139634a1389abc32d74e289d11c2266",
     "上部构造剖面预览.json": "8bce84c60e49aedff84183b9f2717afc73f9693389bbb17f6e80d0ee896e9aeb",
     "上部结构一般构造参数.json": "533757294b9917e50b4168e2b2d69e948fc54f1ace6ef32068b5460719b4a376",
-    "建模依据与待核验项.txt": "9c3e7b6c707ef4dc25d652a97c30bf3498fbc45ca34fb9054f0447ab0354c381",
+    "建模依据与待核验项.txt": "d8554679a90048f055d5159853faa2d696156330c1f0ed00b2142187efee307b",
     "图纸版本选用表.json": "f0fd3aca78bc03ff1d300c2b6d4ce9370de638bee89342fa105fa7c4af1f2ba5",
     "护栏C版截面.json": "3a513930616f2ebddcacc89fb782380c601a02f9e6c278e6c468f6f7ac5d4fd6",
     "引桥盖梁C版参数.json": "6f427a578472ff44d93f5733bb7e3cd09d06673f53d74583280103119e84d5f3",
@@ -26,16 +26,18 @@
     "SII-4C总图控制参数.json": "b1483f73e800e79b4664da0bd6638c728cff9994c10a0161ca5c10b03912c501",
     "SII-60C桥台建模依据.json": "18fd06347b60c37cebe0516e9849386078711b446559ba165e484410781bf7d3",
     "西端桥台移置说明.json": "18334bfaa24d8b3a45d984fc494e1239b69d86bb4d6902df810c1b088b9b26cc",
-    "terrain_viewer.js": "794b967d95d56b27b9bfa3e82c998f25e3a6a05f73de9bcd59e1438714eae113",
-    "地形底图配准.json": "3657eaa8cca22a4ff9dce020e191ddd2bf4f58a810e1d65e471aa6df8d643581",
-    "terrain/surface.json": "a790938b9f73d8bfbc050ac687e33599bc7f531edcbebe8b22dde241da9ab521",
-    "三维地形说明.json": "a70dc4b01eebe2a4da94199f067891408a827aed643b0e582d6a3ccd3ec681fd",
+    "terrain_viewer.js": "b1e8fb0ee3b07774cfccb18dfaed5c0f5098634960f22348c593f2a387a0e444",
+    "地形底图配准.json": "e09ffdb36132126df579da6cfeff20799307f9f0073ddfbc18198b784bf6c18d",
+    "terrain/surface.json": "d98b123fb50863fa7699b056644b8f4c13e0fa175e1334229b4061844447876b",
+    "terrain/river.json": "3281e12e5f48454607e619e79eb44e8047d15924b4872b51a646b27d79b407a0",
+    "河床与水体建模依据.json": "b7044cd28106e30b5b466daba80e1a7dc05d54373186399b0a59f0a14bc3bbc8",
+    "三维地形说明.json": "0b99bc64f72ab2159dc54b8b21b463873a4d98472e313fc8e2489c71418caa35",
     "地形高程点.csv": "ea278bc11144c127203b5c0bf4d6d9693120d454217df58c96b77cc7f588aab9",
     "terrain/survey-0-0.png": "0eba1c232fbd1269251beef7067d5a3f198fcbb04327e50ca57a2182ce5f8370",
     "terrain/survey-0-1.png": "441c35e6f1976ad5cb8da15e1947966ae2f8cc76d48762520866c73e4d927cbe",
     "terrain/survey-1-0.png": "64250da11937941a734163799cb14101c1884446da2ec4ed74703ec5a5d23f8c",
     "terrain/survey-1-1.png": "4da178155db07eca17a71e498cd466211201a7aab8735854fc96703e4c395c4e",
-    "index.html": "2079cf4039e6e0488aa212425cfae67880814666d3eb8836e6764580c5f3da8b"
+    "index.html": "663f1fbf9a78122953ea66559a6e28e1fda2301419bdb6b749f8755ca0e6c40c"
   },
   "terrain_surface": {
     "observations": 262,
@@ -45,5 +47,10 @@
       0.1,
       4.145
     ]
+  },
+  "river": {
+    "design_bed_elevation": -2.8,
+    "reference_water_elevation": 2.2,
+    "water_reference": "最高通航水位（非实时水位）"
   }
 }
