@@ -1,0 +1,77 @@
+{
+  "source": "八坼大桥地形图.dwg",
+  "accepted_spots": 262,
+  "spots_used_in_tin": 262,
+  "height_range": [
+    0.1,
+    4.145
+  ],
+  "bank_source_handles": {
+    "west": [
+      16923,
+      37,
+      924,
+      925,
+      16846
+    ],
+    "east": [
+      12997
+    ]
+  },
+  "interpolated_bank_constraints": 264,
+  "excluded_annotations": [
+    {
+      "text_handle": 373,
+      "text": "2.5",
+      "native_z": null,
+      "reason": "未找到同高程的测点符号"
+    },
+    {
+      "text_handle": 1679,
+      "text": "3.0",
+      "native_z": null,
+      "reason": "未找到同高程的测点符号"
+    },
+    {
+      "text_handle": 17496,
+      "text": "3.6",
+      "native_z": 6.22109502236771,
+      "reason": "文字标高与图元Z不一致"
+    },
+    {
+      "text_handle": 17586,
+      "text": "-0.1",
+      "native_z": 2.438,
+      "reason": "文字标高与图元Z不一致"
+    },
+    {
+      "text_handle": 17634,
+      "text": "2.0",
+      "native_z": 1.768,
+      "reason": "文字标高与图元Z不一致"
+    },
+    {
+      "text_handle": 17638,
+      "text": "1.9",
+      "native_z": 1.768,
+      "reason": "文字标高与图元Z不一致"
+    },
+    {
+      "text_handle": 18496,
+      "text": "2.1",
+      "native_z": 1.945,
+      "reason": "文字标高与图元Z不一致"
+    }
+  ],
+  "excluded_long_gap_triangles": 34,
+  "excluded_channel_triangles": 269,
+  "triangles": 1054,
+  "notes": [
+    "原图小数标高文字与附近0.2m测点符号中心Z交叉核对，不将建筑层数或任意图元Z当作地面。",
+    "三维地表保持原始高程，无竖向夸大。测点之间为线性插值，不代表新增测量精度。",
+    "河道按原图岸线避开陆域三角网；河道仍显示0m平面底图参考，不代表水位或河床高程。未生成河床。",
+    "数据凸包外和三角形边长大于120m的空白区不外推，仍显示平面底图；河岸加密点为邻近同岸实测点插值。",
+    "图纸测绘高程与桥梁标高按原数值叠合；原文件未提供独立高程基准转换参数。",
+    "西端缓和曲线与现直线桥梁模型的约0.5m差异仍保留。"
+  ]
+}

@@ -1,6 +1,6 @@
 import * as T from 'three/webgpu';
 import {OrbitControls} from './vendor/OrbitControls.js';
-import {createTerrainBasemap} from './terrain_viewer.js?v=728d793b20d5';
+import {createTerrainBasemap} from './terrain_viewer.js?v=caf711ec5d39';
 const $=id=>document.getElementById(id),status=$('status'),tip=$('tip');
 let renderer,scene,camera,controls,groups=[],displayMode=1,wire=false,xray=true,measuring=false,points=[],markers,scheduled=false,numberLabels=[],numbersVisible=true;
 let selectionRoot,selectedUnit=null;const units=new Map();
@@ -64,7 +64,7 @@ function showMeasurement(){for(const child of markers.children){child.geometry.d
 function exitSections(){if(!sectionState)return;groups.forEach((g,i)=>g.visible=sectionState[i]);for(const g of previewGroups){g.visible=false;if(g.userData.outline)g.userData.outline.visible=false}sectionState=null;tip.textContent='';modes()}
 async function showSection(approach){
  clearSelection();
- if(!previewGroups.length){const data=await (await fetch('./上部构造剖面预览.json?v=728d793b20d5')).json();for(const m of data){const geometry=new T.BufferGeometry();geometry.setAttribute('position',new T.Float32BufferAttribute(m.v.flatMap(([x,y,z])=>[x,z,-y]),3));geometry.setIndex(m.f.flat());const g=new T.Mesh(geometry,new T.MeshBasicMaterial({color:palette[m.mat],side:T.DoubleSide}));const batch={mesh:g};const unit=registerUnit({...m,cat:m.cat+'（剖面样段）'},batch,0,m.f.length,0,m.w.length*2);g.userData={cat:m.cat,tendon:false,ranges:[{endFace:m.f.length,unit}],wireIndices:m.w.flat()};g.visible=false;previewGroups.push(g);scene.add(g)}}
+ if(!previewGroups.length){const data=await (await fetch('./上部构造剖面预览.json?v=caf711ec5d39')).json();for(const m of data){const geometry=new T.BufferGeometry();geometry.setAttribute('position',new T.Float32BufferAttribute(m.v.flatMap(([x,y,z])=>[x,z,-y]),3));geometry.setIndex(m.f.flat());const g=new T.Mesh(geometry,new T.MeshBasicMaterial({color:palette[m.mat],side:T.DoubleSide}));const batch={mesh:g};const unit=registerUnit({...m,cat:m.cat+'（剖面样段）'},batch,0,m.f.length,0,m.w.length*2);g.userData={cat:m.cat,tendon:false,ranges:[{endFace:m.f.length,unit}],wireIndices:m.w.flat()};g.visible=false;previewGroups.push(g);scene.add(g)}}
  if(!sectionState)sectionState=groups.map(g=>g.visible);groups.forEach(g=>g.visible=false);
  const names=['跨中箱梁','根部箱梁','墩顶横梁','梁端横梁'],stations=[997.6,945.6,947.6,888.48];if(!approach)sectionIndex=(sectionIndex+1)%names.length;
  const cat=approach?'引桥空心板截面':names[sectionIndex],station=approach?537.23:stations[sectionIndex],height=approach?3.8:cat==='跨中箱梁'?13.65:cat==='梁端横梁'?12.7:12.2;
@@ -78,15 +78,15 @@ function showPads(main){
 }
 async function loadModel(){
  if(typeof DecompressionStream!=='undefined'){
-  try{const response=await fetch('./geometry.json.gz?v=728d793b20d5');if(response.ok&&response.body)return await new Response(response.body.pipeThrough(new DecompressionStream('gzip'))).json()}catch(error){console.warn('Compressed model unavailable; loading JSON fallback.',error)}
+  try{const response=await fetch('./geometry.json.gz?v=caf711ec5d39');if(response.ok&&response.body)return await new Response(response.body.pipeThrough(new DecompressionStream('gzip'))).json()}catch(error){console.warn('Compressed model unavailable; loading JSON fallback.',error)}
  }
- const response=await fetch('./geometry.json?v=728d793b20d5');if(!response.ok)throw new Error('模型加载失败：HTTP '+response.status);return response.json()
+ const response=await fetch('./geometry.json?v=caf711ec5d39');if(!response.ok)throw new Error('模型加载失败：HTTP '+response.status);return response.json()
 }
 async function main(){
  renderer=new T.WebGPURenderer({antialias:true});renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));renderer.setSize(innerWidth,innerHeight);await renderer.init();document.body.append(renderer.domElement);
  scene=new T.Scene();scene.background=new T.Color(0x14212c);camera=new T.OrthographicCamera(-425,425,240,-240,.1,3000);controls=new OrbitControls(camera,renderer.domElement);controls.enableDamping=false;controls.addEventListener('change',invalidate);markers=new T.Group();scene.add(markers);selectionRoot=new T.Group();scene.add(selectionRoot);$('selectionClear').onclick=clearSelection;$('selectionFocus').onclick=focusSelection;
  status.textContent='正在加载并合并模型缓冲区…';
- const labels=await (await fetch('./墩台编号.json?v=728d793b20d5')).json();
+ const labels=await (await fetch('./墩台编号.json?v=caf711ec5d39')).json();
  for(const item of labels){const element=document.createElement('span');element.className='pier-number';element.textContent=item.name;element.title=`${item.name} / K${Math.floor(item.station/1000)}+${(item.station%1000).toFixed(3)} / ${item.source}`;$('pierNumbers').append(element);numberLabels.push({element,position:new T.Vector3(item.station-1000,item.elevation,12)})}
  $('numbers').onclick=()=>{numbersVisible=!numbersVisible;toggle('numbers',numbersVisible,numbersVisible?'墩台号：显示':'墩台号：隐藏');invalidate()};
 
