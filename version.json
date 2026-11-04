@@ -1,6 +1,6 @@
 {
-  "revision": "2053ea4b722a",
-  "updated_utc": "2026-11-04T08:32:07.976277+00:00",
+  "revision": "694c8583bb7e",
+  "updated_utc": "2026-11-04T11:33:30.243095+00:00",
   "components": 3422,
   "render_batches": 17,
   "bearing_plinths": 2184,
@@ -11,7 +11,7 @@
     "节段与联划分.json": "cefdce59ad8cc3355aaa0e3a647bdb68aeb8f16201c1331bcea39d4961c087db",
     "geometry.json": "12e4aec56e508ed7c4cde46c336bd237ab2676852d260c7bcc4ae2e31d48da13",
     "geometry.json.gz": "cd6b06c4c851555386a0b7e6a424e74e111cd0a42b75a6ba70e1c9c528c090f0",
-    "gpu_viewer.js": "59d25d23b90da3149dabb0c1c963937eb373da2a0b42a054f1e734242de01375",
+    "gpu_viewer.js": "266a189c00775c78b76fcda5e4408d4be70247ddaf90aa034da2cf1f0546c9c6",
     "墩台编号.json": "a51ab50e1747593541720eef9c2622e00139634a1389abc32d74e289d11c2266",
     "上部构造剖面预览.json": "8bce84c60e49aedff84183b9f2717afc73f9693389bbb17f6e80d0ee896e9aeb",
     "上部结构一般构造参数.json": "533757294b9917e50b4168e2b2d69e948fc54f1ace6ef32068b5460719b4a376",
@@ -26,8 +26,8 @@
     "SII-4C总图控制参数.json": "b1483f73e800e79b4664da0bd6638c728cff9994c10a0161ca5c10b03912c501",
     "SII-60C桥台建模依据.json": "18fd06347b60c37cebe0516e9849386078711b446559ba165e484410781bf7d3",
     "西端桥台移置说明.json": "18334bfaa24d8b3a45d984fc494e1239b69d86bb4d6902df810c1b088b9b26cc",
-    "terrain_viewer.js": "17cd36cdcf976c1a7c31aac0efee8f3b2d1f90f778eb8890b3e68780fd23e35f",
-    "地形底图配准.json": "8bab77ac140838baecba4aae01465ffc8137065316399b05588d19401a3432c7",
+    "terrain_viewer.js": "2cadadc6c913076fce8d3b6cf9a07907be458e818f9704ce8e30cb4a6a0f6633",
+    "地形底图配准.json": "f7a2fca20a1a88eae3224b4a12147657ee4d3bab0d2688d9bf3c32843eb64236",
     "terrain/surface.json": "d98b123fb50863fa7699b056644b8f4c13e0fa175e1334229b4061844447876b",
     "terrain/river.json": "3281e12e5f48454607e619e79eb44e8047d15924b4872b51a646b27d79b407a0",
     "河床与水体建模依据.json": "b7044cd28106e30b5b466daba80e1a7dc05d54373186399b0a59f0a14bc3bbc8",
@@ -38,8 +38,8 @@
     "terrain/survey-1-0.png": "64250da11937941a734163799cb14101c1884446da2ec4ed74703ec5a5d23f8c",
     "terrain/survey-1-1.png": "4da178155db07eca17a71e498cd466211201a7aab8735854fc96703e4c395c4e",
     "预应力分组.json": "718a84f28fa6d4247ed70de1a8a4f637a0b3390c89a709418495a2e7f54b311b",
-    "cesium.html": "93a1fe33fa6a7533cd6fefc9e8d65ad84f4bc853a30a8faed0adedfe7bd0b339",
-    "cesium_scene.js": "f3f013898448944cf2308ff21738f75cba2748923d5fae59bfe367c5dd1668c6",
+    "cesium.html": "f7728ccfa90515aa49c58309c8dcd373d81ff48df6a9d8f0d01def7f8c2cc59e",
+    "cesium_scene.js": "e3b42ecf1232e1374fdd051db9b29ee2f501f0708b619866cf75d3cbe1d73b84",
     "cesium_terrain.js": "5601c824cb3a43fac365093f7b8e03e41c2c8d7f0be904b397262abf81c06830",
     "大场景定位与数据说明.json": "e169637f3c97f441692018daca2f204c0a3eca85c1cea8f71f6f1b71c186258a",
     "vendor/cesium/Cesium.js": "ca180396f07e0c96f5f53b4d18d95ffab7a8a2b5cc115aa9a6fe7037a043c2c7",
@@ -50,7 +50,9 @@
     "scene-assets/steel-web.glb": "dee0499b7b1c8bd4455f90b86579896ea6bd244d872af58a8e766314f253b8de",
     "scene-assets/terrain.glb": "6339573c62c98e6fe171afb6959af22a62102af0b9e3d095ed536a7e7accf2dc",
     "scene-assets/water.glb": "e8ce99a3b1321360a60ba4d618efa608249c35ae4a40d8dbd53ad53c7186450c",
-    "index.html": "e55b2b618a5b4be66d39366ec2afb98a6b5a51ec22eec15389cc3df094b7ee05"
+    "oblique_layer.js": "a6dd97e67d2e88bcb69692c7d95027f0e930d78540eaffe6b7a17dd0b2f97876",
+    "倾斜摄影加载说明.txt": "e58036a7103dcdb3c5d38c7622cdcffb4b21ab7340f374eef4edd670b244edaf",
+    "index.html": "8c412057bf44b87c3d0ef6a9d5e945035ee3efbff694eccb3ac5b734cb2645b8"
   },
   "terrain_surface": {
     "observations": 262,
@@ -75,5 +77,16 @@
     "version": "1.147.0",
     "entry": "cesium.html",
     "positioning": "approximate, user confirmed"
+  },
+  "oblique": {
+    "formats": [
+      "3D Tiles"
+    ],
+    "sources": [
+      "service URL",
+      "local browser directory"
+    ],
+    "osgb": "conversion required",
+    "project_dataset_configured": false
   }
 }

@@ -1,10 +1,11 @@
-import {makeProjectSampler,makeEnvironmentTerrain} from './cesium_terrain.js?v=2053ea4b722a';
+import {makeProjectSampler,makeEnvironmentTerrain} from './cesium_terrain.js?v=694c8583bb7e';
+import {setupObliqueLayer} from './oblique_layer.js?v=694c8583bb7e';
 const C=window.Cesium,$=id=>document.getElementById(id),rev=new URL(import.meta.url).searchParams.get('v')||'local',url=name=>'./'+name+'?v='+encodeURIComponent(rev);
 const stats={demTiles:0,demFailures:0,terrainTiles:0,imageryTiles:0,imageryFailures:0},models={},layers={},settings={east:0,north:0,height:0,yaw:0};let viewer,frame,config,sampler,ready=false,imageryMode='satellite';
 const steelControls={'steel-web':'steelWeb','steel-top':'steelTop','steel-bottom':'steelBottom'},modelControls={bridge:'bridgeLayer',terrain:'projectLayer',water:'waterLayer',...steelControls},pendingModels=new Map();
 function updateBridgeAlpha(){if(models.bridge){const transparent=$('steelXray').checked&&Object.values(steelControls).some(id=>$(id).checked);models.bridge.color=new C.Color(1,1,1,transparent ? .22 : 1);viewer.scene.requestRender()}}
 function error(message){$('error').hidden=false;$('error').textContent=message}
-function updateStatus(){if(!viewer)return;$('status').textContent=`Cesium ${C.VERSION} · ${ready?'桥梁与工程地形已加载':'正在加载工程模型…'} · 环境DEM ${stats.demTiles}片 · 影像 ${stats.imageryTiles}片`+(stats.demFailures?' · 部分DEM请求失败，局部回退参考面':'');viewer.scene.requestRender()}
+function updateStatus(){if(!viewer)return;$('status').textContent=`Cesium ${C.VERSION} · ${window.CESIUM_EXPERIMENT ? viewer.scene.context.rendererType+' 试验版 · ' : ''}${ready?'桥梁与工程地形已加载':'正在加载工程模型…'} · 环境DEM ${stats.demTiles}片 · 影像 ${stats.imageryTiles}片`+(stats.demFailures?' · 部分DEM请求失败，局部回退参考面':'');viewer.scene.requestRender()}
 function makeFrame(){
  const p=window.proj4(config.projection,'EPSG:4326',[config.engineering_origin.E,config.engineering_origin.N]),q=window.proj4(config.projection,'EPSG:4326',[config.engineering_origin.E+config.grid_axis[0]*100,config.engineering_origin.N+config.grid_axis[1]*100]);
  const lat=C.Math.toRadians(p[1]),ecc2=.0066943799901413165,n=6378137/Math.sqrt(1-ecc2*Math.sin(lat)**2),m=6378137*(1-ecc2)/(1-ecc2*Math.sin(lat)**2)**1.5;
@@ -49,7 +50,22 @@ async function main(){
  const [surface,river]=await Promise.all(['terrain/surface.json','terrain/river.json'].map(n=>fetch(url(n)).then(r=>{if(!r.ok)throw Error(n+' HTTP '+r.status);return r.json()})));sampler=makeProjectSampler(surface,river);
  try{const s=JSON.parse(localStorage.getItem('bacha-cesium-location-v1'));for(const k of Object.keys(settings))if(Number.isFinite(s?.[k])&&Math.abs(s[k])<=(k==='yaw'?180:10000))settings[k]=s[k]}catch{}
  for(const k of Object.keys(settings))$(k).value=settings[k];frame=makeFrame();
- viewer=new C.Viewer('globe',{baseLayer:false,baseLayerPicker:false,animation:false,timeline:false,geocoder:false,homeButton:false,navigationHelpButton:false,sceneModePicker:false,selectionIndicator:false,infoBox:false,requestRenderMode:true,maximumRenderTimeChange:Infinity,terrainProvider:terrain()});
+ const viewerOptions={baseLayer:false,baseLayerPicker:false,animation:false,timeline:false,geocoder:false,homeButton:false,navigationHelpButton:false,sceneModePicker:false,selectionIndicator:false,infoBox:false,requestRenderMode:true,maximumRenderTimeChange:Infinity,terrainProvider:terrain()};
+ if(window.CESIUM_EXPERIMENT){
+  const backend=new URL(location.href).searchParams.get('renderer')==='webgl'?'webgl':'webgpu';
+  if(backend==='webgpu'&&(!isSecureContext||!navigator.gpu))throw Error('当前浏览器未提供WebGPU，请使用支持WebGPU的Chrome／Edge，并从localhost或HTTPS打开');
+  viewer=await C.Viewer.createAsync('globe',{...viewerOptions,contextOptions:{renderer:backend}});
+  if(backend==='webgpu'&&!viewer.scene.context.isWebGPU)throw Error('WebGPU未成功启用，实际后端为'+viewer.scene.context.rendererType);
+ }else viewer=new C.Viewer('globe',viewerOptions);
+ if(window.CESIUM_EXPERIMENT){
+  viewer.scene.globe.nightImagery=false;
+  if(viewer.scene.context.isWebGPU){
+   $('steelXray').checked=false;$('steelXray').disabled=true;$('waterAlpha').disabled=true;
+   $('steelXray').parentElement.title='此社区分支的模型透明度尚未通过画面对照；请隐藏桥梁模型查看钢束。';
+   $('waterAlpha').parentElement.title='WebGPU模型透明度存在兼容问题，当前水体按实体蓝色显示。';
+   $('compatibility').hidden=false;
+  }
+ }
  viewer.scene.globe.depthTestAgainstTerrain=true;viewer.scene.globe.maximumScreenSpaceError=3;viewer.scene.screenSpaceCameraController.minimumZoomDistance=8;viewer.scene.globe.baseColor=C.Color.fromCssColorString('#6a8794');viewer.scene.postProcessStages.fxaa.enabled=true;viewer.scene.globe.tileLoadProgressEvent.addEventListener(n=>{stats.pendingTiles=n;if(n>0)viewer.scene.requestRender()});
  viewer.scene.renderError.addEventListener((scene,e)=>error('场景渲染失败：'+e.message));
  const offline=await C.TileMapServiceImageryProvider.fromUrl(C.buildModuleUrl('Assets/Textures/NaturalEarthII'));layers.offline=viewer.imageryLayers.addImageryProvider(offline);setImagery('satellite');frameView('bridge',false);
@@ -63,7 +79,8 @@ async function main(){
  $('apply').onclick=()=>applySettings(true);$('reset').onclick=()=>{for(const k of Object.keys(settings))$(k).value=0;try{localStorage.removeItem('bacha-cesium-location-v1')}catch{}applySettings(false)};
  $('menu').onclick=()=>{const hidden=!$('panel').hidden;$('panel').hidden=hidden;$('menu').textContent=hidden?'展开菜单':'隐藏菜单';$('menu').setAttribute('aria-expanded',String(!hidden))};
  addEventListener('keydown',e=>{if((e.key==='h'||e.key==='H')&&!['INPUT','SELECT','TEXTAREA'].includes(document.activeElement?.tagName))$('menu').click()});
- window.cesiumBridge={viewer,models,stats,config,settings,sampler,frameView,setImagery,get frame(){return frame},get ready(){return ready},get imageryMode(){return imageryMode}};
+ const oblique=setupObliqueLayer(C,viewer);
+ window.cesiumBridge={viewer,models,stats,config,settings,sampler,frameView,setImagery,oblique,get frame(){return frame},get ready(){return ready},get imageryMode(){return imageryMode}};
  updateStatus();await Promise.all(['bridge','terrain','water'].map(loadModel));ready=true;updateStatus();
 }
 main().catch(e=>{console.error(e);error('Cesium大场景加载失败：'+e.message+'。可返回桥梁细部查看器。')});
