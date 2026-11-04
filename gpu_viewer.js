@@ -1,9 +1,11 @@
 import * as T from 'three/webgpu';
 import {OrbitControls} from './vendor/OrbitControls.js';
+import {createTerrainBasemap} from './terrain_viewer.js?v=728d793b20d5';
 const $=id=>document.getElementById(id),status=$('status'),tip=$('tip');
 let renderer,scene,camera,controls,groups=[],displayMode=1,wire=false,xray=true,measuring=false,points=[],markers,scheduled=false,numberLabels=[],numbersVisible=true;
 let selectionRoot,selectedUnit=null;const units=new Map();
 let divisionColors=true;
+let basemap=null;
 let previewGroups=[],sectionState=null,sectionIndex=-1;
 const menuButton=$('menuToggle');
 menuButton.onclick=()=>{const hidden=!$('viewerMenu').hidden;$('viewerMenu').hidden=hidden;menuButton.textContent=hidden?'展开菜单':'隐藏菜单';menuButton.setAttribute('aria-expanded',String(!hidden))};
@@ -25,6 +27,7 @@ function ensureQuadGrid(g){
  const line=new T.LineSegments(geometry,new T.LineBasicMaterial({color:palette[g.userData.mat]??g.material.color,depthTest:true,depthWrite:false}));line.renderOrder=2;line.visible=false;scene.add(line);g.userData.quadGrid=line;
 }
 function modes(){
+ basemap?.setIsolated(Boolean(sectionState));
  wire=displayMode===2;
  for(const g of [...groups,...previewGroups]){
   if(displayMode===1)ensureOutline(g);if(wire)ensureQuadGrid(g);
@@ -61,7 +64,7 @@ function showMeasurement(){for(const child of markers.children){child.geometry.d
 function exitSections(){if(!sectionState)return;groups.forEach((g,i)=>g.visible=sectionState[i]);for(const g of previewGroups){g.visible=false;if(g.userData.outline)g.userData.outline.visible=false}sectionState=null;tip.textContent='';modes()}
 async function showSection(approach){
  clearSelection();
- if(!previewGroups.length){const data=await (await fetch('./上部构造剖面预览.json?v=64690089399b')).json();for(const m of data){const geometry=new T.BufferGeometry();geometry.setAttribute('position',new T.Float32BufferAttribute(m.v.flatMap(([x,y,z])=>[x,z,-y]),3));geometry.setIndex(m.f.flat());const g=new T.Mesh(geometry,new T.MeshBasicMaterial({color:palette[m.mat],side:T.DoubleSide}));const batch={mesh:g};const unit=registerUnit({...m,cat:m.cat+'（剖面样段）'},batch,0,m.f.length,0,m.w.length*2);g.userData={cat:m.cat,tendon:false,ranges:[{endFace:m.f.length,unit}],wireIndices:m.w.flat()};g.visible=false;previewGroups.push(g);scene.add(g)}}
+ if(!previewGroups.length){const data=await (await fetch('./上部构造剖面预览.json?v=728d793b20d5')).json();for(const m of data){const geometry=new T.BufferGeometry();geometry.setAttribute('position',new T.Float32BufferAttribute(m.v.flatMap(([x,y,z])=>[x,z,-y]),3));geometry.setIndex(m.f.flat());const g=new T.Mesh(geometry,new T.MeshBasicMaterial({color:palette[m.mat],side:T.DoubleSide}));const batch={mesh:g};const unit=registerUnit({...m,cat:m.cat+'（剖面样段）'},batch,0,m.f.length,0,m.w.length*2);g.userData={cat:m.cat,tendon:false,ranges:[{endFace:m.f.length,unit}],wireIndices:m.w.flat()};g.visible=false;previewGroups.push(g);scene.add(g)}}
  if(!sectionState)sectionState=groups.map(g=>g.visible);groups.forEach(g=>g.visible=false);
  const names=['跨中箱梁','根部箱梁','墩顶横梁','梁端横梁'],stations=[997.6,945.6,947.6,888.48];if(!approach)sectionIndex=(sectionIndex+1)%names.length;
  const cat=approach?'引桥空心板截面':names[sectionIndex],station=approach?537.23:stations[sectionIndex],height=approach?3.8:cat==='跨中箱梁'?13.65:cat==='梁端横梁'?12.7:12.2;
@@ -75,15 +78,15 @@ function showPads(main){
 }
 async function loadModel(){
  if(typeof DecompressionStream!=='undefined'){
-  try{const response=await fetch('./geometry.json.gz?v=64690089399b');if(response.ok&&response.body)return await new Response(response.body.pipeThrough(new DecompressionStream('gzip'))).json()}catch(error){console.warn('Compressed model unavailable; loading JSON fallback.',error)}
+  try{const response=await fetch('./geometry.json.gz?v=728d793b20d5');if(response.ok&&response.body)return await new Response(response.body.pipeThrough(new DecompressionStream('gzip'))).json()}catch(error){console.warn('Compressed model unavailable; loading JSON fallback.',error)}
  }
- const response=await fetch('./geometry.json?v=64690089399b');if(!response.ok)throw new Error('模型加载失败：HTTP '+response.status);return response.json()
+ const response=await fetch('./geometry.json?v=728d793b20d5');if(!response.ok)throw new Error('模型加载失败：HTTP '+response.status);return response.json()
 }
 async function main(){
  renderer=new T.WebGPURenderer({antialias:true});renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));renderer.setSize(innerWidth,innerHeight);await renderer.init();document.body.append(renderer.domElement);
  scene=new T.Scene();scene.background=new T.Color(0x14212c);camera=new T.OrthographicCamera(-425,425,240,-240,.1,3000);controls=new OrbitControls(camera,renderer.domElement);controls.enableDamping=false;controls.addEventListener('change',invalidate);markers=new T.Group();scene.add(markers);selectionRoot=new T.Group();scene.add(selectionRoot);$('selectionClear').onclick=clearSelection;$('selectionFocus').onclick=focusSelection;
  status.textContent='正在加载并合并模型缓冲区…';
- const labels=await (await fetch('./墩台编号.json?v=64690089399b')).json();
+ const labels=await (await fetch('./墩台编号.json?v=728d793b20d5')).json();
  for(const item of labels){const element=document.createElement('span');element.className='pier-number';element.textContent=item.name;element.title=`${item.name} / K${Math.floor(item.station/1000)}+${(item.station%1000).toFixed(3)} / ${item.source}`;$('pierNumbers').append(element);numberLabels.push({element,position:new T.Vector3(item.station-1000,item.elevation,12)})}
  $('numbers').onclick=()=>{numbersVisible=!numbersVisible;toggle('numbers',numbersVisible,numbersVisible?'墩台号：显示':'墩台号：隐藏');invalidate()};
 
@@ -98,6 +101,7 @@ async function main(){
  $('wire').onclick=()=>{displayMode=(displayMode+1)%3;toggle('wire',displayMode!==0,['显示：实体','显示：实体＋轮廓','显示：四边形线框'][displayMode]);modes()};$('xray').onclick=()=>{xray=!xray;toggle('xray',xray,xray?'钢束透视：开启':'钢束透视：关闭');modes()};$('measure').onclick=()=>{measuring=!measuring;toggle('measure',measuring,measuring?'测量：开启':'测量：关闭');showMeasurement()};$('clear').onclick=()=>{points=[];showMeasurement()};
  const ray=new T.Raycaster();let down=null;renderer.domElement.addEventListener('pointerdown',e=>down=[e.clientX,e.clientY]);renderer.domElement.addEventListener('pointerup',e=>{if(e.button!==0||!down||Math.hypot(e.clientX-down[0],e.clientY-down[1])>4)return;const rect=renderer.domElement.getBoundingClientRect();ray.setFromCamera(new T.Vector2((e.clientX-rect.left)/rect.width*2-1,-(e.clientY-rect.top)/rect.height*2+1),camera);const hits=ray.intersectObjects([...groups,...previewGroups].filter(g=>g.visible));if(!hits.length){if(measuring)tip.textContent='未选中模型，请放大后点击构件表面。';else clearSelection();return}let hit=hits[0];if(xray){const tendonHit=hits.find(h=>h.object.userData.tendon);if(tendonHit)hit=tendonHit}if(!measuring){selectUnit(unitAtFace(hit.object,hit.faceIndex));return}const pos=hit.object.geometry.attributes.position;const vertices=[hit.face.a,hit.face.b,hit.face.c].map(i=>new T.Vector3().fromBufferAttribute(pos,i));vertices.sort((a,b)=>a.distanceToSquared(hit.point)-b.distanceToSquared(hit.point));if(points.length===2)points=[];points.push(vertices[0]);showMeasurement()});
  addEventListener('resize',()=>{const width=camera.right-camera.left;camera.top=width/2*innerHeight/innerWidth+(sectionState?1.4:0);camera.bottom=-width/2*innerHeight/innerWidth+(sectionState?1.4:0);camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);invalidate()});
- modes();frame('all');await renderer.renderAsync(scene,camera);status.textContent=`${renderer.backend.isWebGPUBackend?'WebGPU':'WebGL2 兼容模式'} · ${raw.length}个构件合并为${groups.length}批次 · 按需重绘`;window.bridgeViewer={renderer,scene,camera,groups,previewGroups,frame,get selectedUnit(){return selectedUnit?.name||null}};
+ modes();frame('all');await renderer.renderAsync(scene,camera);status.textContent=`${renderer.backend.isWebGPUBackend?'WebGPU':'WebGL2 兼容模式'} · ${raw.length}个构件合并为${groups.length}批次 · 按需重绘`;window.bridgeViewer={renderer,scene,camera,groups,previewGroups,frame,get basemap(){return basemap},get selectedUnit(){return selectedUnit?.name||null}};
+ try{basemap=await createTerrainBasemap({scene,renderer,camera,controls,invalidate,beforeFrame:()=>{clearSelection();exitSections()}});basemap.setIsolated(Boolean(sectionState))}catch(error){console.warn('地形底图未加载',error);$('terrainStatus').textContent='地形底图加载失败，可刷新重试；桥梁仍可浏览。'}
 }
 main().catch(e=>{console.error(e);status.textContent='GPU初始化失败：'+e.message+'。可打开“旧版Canvas查看器.html”。'});
