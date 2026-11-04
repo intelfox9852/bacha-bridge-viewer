@@ -1,10 +1,11 @@
 import * as T from 'three/webgpu';
 import {OrbitControls} from './vendor/OrbitControls.js';
-import {createTerrainBasemap} from './terrain_viewer.js?v=a4fb60373ede';
+import {createTerrainBasemap} from './terrain_viewer.js?v=2053ea4b722a';
 const $=id=>document.getElementById(id),status=$('status'),tip=$('tip');
 let renderer,scene,camera,controls,groups=[],displayMode=1,wire=false,xray=true,measuring=false,points=[],markers,scheduled=false,numberLabels=[],numbersVisible=true;
 let selectionRoot,selectedUnit=null;const units=new Map();
 let divisionColors=true;
+const steelVisible={web:true,top:true,bottom:true};
 let basemap=null;
 let previewGroups=[],sectionState=null,sectionIndex=-1;
 const menuButton=$('menuToggle');
@@ -39,6 +40,10 @@ function modes(){
  if(selectionRoot)for(const child of selectionRoot.children){if(child.isMesh){child.visible=!wire;child.material.wireframe=false;child.material.depthTest=!(xray&&selectedUnit?.parts.some(p=>p.batch.mesh.userData.tendon));child.material.needsUpdate=true}else if(child.isLineSegments){child.material.depthTest=!(xray&&selectedUnit?.parts.some(p=>p.batch.mesh.userData.tendon))}}
  invalidate();
 }
+function updateSteelVisibility(g){
+ const visible=g.userData.enabled&&steelVisible[g.userData.steelGroup];
+ if(sectionState)sectionState[groups.indexOf(g)]=visible;else g.visible=visible;
+}
 function unitKey(m){if(m.unit)return 'division|'+m.unit.id;return m.cat+'|'+(m.cat==='引桥空心板'?m.name.replace(/_(西封头|东封头|孔腔)\d+$/,''):m.name)}
 function registerUnit(m,batch,startFace,endFace,wireStart=0,wireEnd=0){
  const key=unitKey(m);let unit=units.get(key);if(!unit){unit={name:m.unit?.name||key.slice(key.indexOf('|')+1),cat:m.unit?.kind||m.cat,division:m.unit?.division,controlRange:m.unit?[m.unit.start,m.unit.end]:null,status:(m.unit?m.unit.source+'；':'')+(m.status||(m.cat.includes('引桥空心板截面')?'SII-48C / SII-49B 截面样段':'SII-7A 截面样段')),parts:[],min:[Infinity,Infinity,Infinity],max:[-Infinity,-Infinity,-Infinity]};units.set(key,unit)}
@@ -64,7 +69,7 @@ function showMeasurement(){for(const child of markers.children){child.geometry.d
 function exitSections(){if(!sectionState)return;groups.forEach((g,i)=>g.visible=sectionState[i]);for(const g of previewGroups){g.visible=false;if(g.userData.outline)g.userData.outline.visible=false}sectionState=null;tip.textContent='';modes()}
 async function showSection(approach){
  clearSelection();
- if(!previewGroups.length){const data=await (await fetch('./上部构造剖面预览.json?v=a4fb60373ede')).json();for(const m of data){const geometry=new T.BufferGeometry();geometry.setAttribute('position',new T.Float32BufferAttribute(m.v.flatMap(([x,y,z])=>[x,z,-y]),3));geometry.setIndex(m.f.flat());const g=new T.Mesh(geometry,new T.MeshBasicMaterial({color:palette[m.mat],side:T.DoubleSide}));const batch={mesh:g};const unit=registerUnit({...m,cat:m.cat+'（剖面样段）'},batch,0,m.f.length,0,m.w.length*2);g.userData={cat:m.cat,tendon:false,ranges:[{endFace:m.f.length,unit}],wireIndices:m.w.flat()};g.visible=false;previewGroups.push(g);scene.add(g)}}
+ if(!previewGroups.length){const data=await (await fetch('./上部构造剖面预览.json?v=2053ea4b722a')).json();for(const m of data){const geometry=new T.BufferGeometry();geometry.setAttribute('position',new T.Float32BufferAttribute(m.v.flatMap(([x,y,z])=>[x,z,-y]),3));geometry.setIndex(m.f.flat());const g=new T.Mesh(geometry,new T.MeshBasicMaterial({color:palette[m.mat],side:T.DoubleSide}));const batch={mesh:g};const unit=registerUnit({...m,cat:m.cat+'（剖面样段）'},batch,0,m.f.length,0,m.w.length*2);g.userData={cat:m.cat,tendon:false,ranges:[{endFace:m.f.length,unit}],wireIndices:m.w.flat()};g.visible=false;previewGroups.push(g);scene.add(g)}}
  if(!sectionState)sectionState=groups.map(g=>g.visible);groups.forEach(g=>g.visible=false);
  const names=['跨中箱梁','根部箱梁','墩顶横梁','梁端横梁'],stations=[997.6,945.6,947.6,888.48];if(!approach)sectionIndex=(sectionIndex+1)%names.length;
  const cat=approach?'引桥空心板截面':names[sectionIndex],station=approach?537.23:stations[sectionIndex],height=approach?3.8:cat==='跨中箱梁'?13.65:cat==='梁端横梁'?12.7:12.2;
@@ -78,22 +83,23 @@ function showPads(main){
 }
 async function loadModel(){
  if(typeof DecompressionStream!=='undefined'){
-  try{const response=await fetch('./geometry.json.gz?v=a4fb60373ede');if(response.ok&&response.body)return await new Response(response.body.pipeThrough(new DecompressionStream('gzip'))).json()}catch(error){console.warn('Compressed model unavailable; loading JSON fallback.',error)}
+  try{const response=await fetch('./geometry.json.gz?v=2053ea4b722a');if(response.ok&&response.body)return await new Response(response.body.pipeThrough(new DecompressionStream('gzip'))).json()}catch(error){console.warn('Compressed model unavailable; loading JSON fallback.',error)}
  }
- const response=await fetch('./geometry.json?v=a4fb60373ede');if(!response.ok)throw new Error('模型加载失败：HTTP '+response.status);return response.json()
+ const response=await fetch('./geometry.json?v=2053ea4b722a');if(!response.ok)throw new Error('模型加载失败：HTTP '+response.status);return response.json()
 }
 async function main(){
  renderer=new T.WebGPURenderer({antialias:true});renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));renderer.setSize(innerWidth,innerHeight);await renderer.init();document.body.append(renderer.domElement);
  scene=new T.Scene();scene.background=new T.Color(0x14212c);camera=new T.OrthographicCamera(-425,425,240,-240,.1,3000);controls=new OrbitControls(camera,renderer.domElement);controls.enableDamping=false;controls.addEventListener('change',invalidate);markers=new T.Group();scene.add(markers);selectionRoot=new T.Group();scene.add(selectionRoot);$('selectionClear').onclick=clearSelection;$('selectionFocus').onclick=focusSelection;
  status.textContent='正在加载并合并模型缓冲区…';
- const labels=await (await fetch('./墩台编号.json?v=a4fb60373ede')).json();
+ const labels=await (await fetch('./墩台编号.json?v=2053ea4b722a')).json();
  for(const item of labels){const element=document.createElement('span');element.className='pier-number';element.textContent=item.name;element.title=`${item.name} / K${Math.floor(item.station/1000)}+${(item.station%1000).toFixed(3)} / ${item.source}`;$('pierNumbers').append(element);numberLabels.push({element,position:new T.Vector3(item.station-1000,item.elevation,12)})}
  $('numbers').onclick=()=>{numbersVisible=!numbersVisible;toggle('numbers',numbersVisible,numbersVisible?'墩台号：显示':'墩台号：隐藏');invalidate()};
 
  const raw=await loadModel(),batches=new Map();
- for(const m of raw){const key=m.cat+'|'+m.mat;if(!batches.has(key))batches.set(key,{cat:m.cat,mat:m.mat,p:[],idx:[],wire:[],colors:[],ranges:[]});const b=batches.get(key),off=b.p.length/3,startFace=b.idx.length/3;const shade=m.unit?(m.unit.ordinal%2?1.08:.78):1,c=new T.Color(palette[m.mat]).multiplyScalar(shade);for(const [x,y,z] of m.v){b.p.push(x,z,-y);b.colors.push(c.r,c.g,c.b)}for(const f of m.f)for(const i of f)b.idx.push(i+off);const endFace=b.idx.length/3,wireStart=b.wire.length;for(const [a,c] of m.w)b.wire.push(a+off,c+off);b.ranges.push({endFace,unit:registerUnit(m,b,startFace,endFace,wireStart,b.wire.length)})}
- for(const b of batches.values()){const geometry=new T.BufferGeometry();geometry.setAttribute('position',new T.Float32BufferAttribute(b.p,3));geometry.setAttribute('color',new T.Float32BufferAttribute(b.colors,3));geometry.setIndex(b.idx);geometry.computeBoundingSphere();const material=new T.MeshBasicMaterial({color:divisionColors?0xffffff:palette[b.mat],vertexColors:divisionColors,side:T.DoubleSide});const mesh=new T.Mesh(geometry,material);mesh.userData={cat:b.cat,mat:b.mat,tendon:b.mat>=5,ranges:b.ranges,wireIndices:b.wire};mesh.visible=!b.cat.includes('待核对')&&!b.cat.includes('预留孔道');b.mesh=mesh;groups.push(mesh);scene.add(mesh);delete b.p;delete b.idx;delete b.wire;delete b.colors}
- for(const cat of new Set(groups.map(g=>g.userData.cat))){const label=document.createElement('label'),input=document.createElement('input');input.type='checkbox';input.checked=groups.find(g=>g.userData.cat===cat).visible;input.onchange=()=>{clearSelection();groups.filter(g=>g.userData.cat===cat).forEach(g=>g.visible=input.checked);modes()};label.append(input,cat);$('cats').append(label)}
+ for(const m of raw){const steelGroup=m.cat==='纵向预应力（原图）'?m.steel_group:null,key=m.cat+'|'+m.mat+(steelGroup?'|'+steelGroup:'');if(!batches.has(key))batches.set(key,{cat:m.cat,mat:m.mat,steelGroup,p:[],idx:[],wire:[],colors:[],ranges:[]});const b=batches.get(key),off=b.p.length/3,startFace=b.idx.length/3;const shade=m.unit?(m.unit.ordinal%2?1.08:.78):1,c=new T.Color(palette[m.mat]).multiplyScalar(shade);for(const [x,y,z] of m.v){b.p.push(x,z,-y);b.colors.push(c.r,c.g,c.b)}for(const f of m.f)for(const i of f)b.idx.push(i+off);const endFace=b.idx.length/3,wireStart=b.wire.length;for(const [a,c] of m.w)b.wire.push(a+off,c+off);b.ranges.push({endFace,unit:registerUnit(m,b,startFace,endFace,wireStart,b.wire.length)})}
+ for(const b of batches.values()){const geometry=new T.BufferGeometry();geometry.setAttribute('position',new T.Float32BufferAttribute(b.p,3));geometry.setAttribute('color',new T.Float32BufferAttribute(b.colors,3));geometry.setIndex(b.idx);geometry.computeBoundingSphere();const material=new T.MeshBasicMaterial({color:divisionColors?0xffffff:palette[b.mat],vertexColors:divisionColors,side:T.DoubleSide});const mesh=new T.Mesh(geometry,material);mesh.userData={cat:b.cat,mat:b.mat,steelGroup:b.steelGroup,enabled:!b.cat.includes('待核对')&&!b.cat.includes('预留孔道'),tendon:b.mat>=5,ranges:b.ranges,wireIndices:b.wire};mesh.visible=!b.cat.includes('待核对')&&!b.cat.includes('预留孔道');b.mesh=mesh;groups.push(mesh);scene.add(mesh);delete b.p;delete b.idx;delete b.wire;delete b.colors}
+ for(const cat of new Set(groups.map(g=>g.userData.cat))){const label=document.createElement('label'),input=document.createElement('input');input.type='checkbox';input.checked=groups.find(g=>g.userData.cat===cat).visible;input.onchange=()=>{clearSelection();groups.filter(g=>g.userData.cat===cat).forEach(g=>{if(g.userData.steelGroup){g.userData.enabled=input.checked;updateSteelVisibility(g)}else g.visible=input.checked});modes()};label.append(input,cat);$('cats').append(label)}
+ for(const [id,type] of [['steelWeb','web'],['steelTop','top'],['steelBottom','bottom']])$(id).onchange=()=>{clearSelection();steelVisible[type]=$(id).checked;groups.filter(g=>g.userData.steelGroup===type).forEach(updateSteelVisibility);modes()};
  $('all').onclick=()=>frame('all');$('main').onclick=()=>frame('main');$('side').onclick=()=>frame('side');$('top').onclick=()=>frame('top');$('pile').onclick=()=>frame('pile');$('mainPier').onclick=()=>frame('mainPier');$('approachCap').onclick=()=>frame('approachCap');$('railing').onclick=()=>frame('railing');$('abutment').onclick=()=>frame('abutment');$('westAbutment').onclick=()=>frame('westAbutment');$('transition').onclick=()=>frame('transition');
  $('mainPads').onclick=()=>showPads(true);$('approachPads').onclick=()=>showPads(false);
  $('mainSection').onclick=()=>showSection(false);$('approachSection').onclick=()=>showSection(true);

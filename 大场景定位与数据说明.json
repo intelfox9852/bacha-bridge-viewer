@@ -1,0 +1,87 @@
+{
+  "cesium_version": "1.147.0",
+  "proj4_version": "2.22.0",
+  "engineering_origin": {
+    "station": 1000,
+    "E": 563542.586,
+    "N": 3440693.873
+  },
+  "grid_axis": [
+    0.9799087671653536,
+    -0.19944625349320816
+  ],
+  "projection": "+proj=tmerc +lat_0=0 +lon_0=120 +k=1 +x_0=500000 +y_0=0 +ellps=krass +towgs84=15.8,-154.4,-82.3,0,0,0,0 +units=m +no_defs",
+  "projection_status": "北京54三度带120E中央子午线推定；采用通用三参数，尚无当地控制点校核",
+  "datum_transform": [
+    15.8,
+    -154.4,
+    -82.3,
+    0,
+    0,
+    0,
+    0
+  ],
+  "assets": {
+    "bridge": {
+      "bytes": 10360336,
+      "nodes": 11,
+      "sha256": "ad7e987f4c238a2919c89edb90eef390bf6a181076454d0da47b4572bd34db17",
+      "triangles": 565300
+    },
+    "terrain": {
+      "bytes": 2233348,
+      "nodes": 5,
+      "sha256": "6339573c62c98e6fe171afb6959af22a62102af0b9e3d095ed536a7e7accf2dc"
+    },
+    "water": {
+      "bytes": 29052,
+      "nodes": 1,
+      "sha256": "e8ce99a3b1321360a60ba4d618efa608249c35ae4a40d8dbd53ad53c7186450c"
+    },
+    "steel-web": {
+      "bytes": 1478900,
+      "nodes": 1,
+      "sha256": "dee0499b7b1c8bd4455f90b86579896ea6bd244d872af58a8e766314f253b8de",
+      "bundle_count": 42
+    },
+    "steel-top": {
+      "bytes": 6382972,
+      "nodes": 1,
+      "sha256": "0fb270101268f63a6ce2670a24bb8ff1e9a262b81bc4f5b71da75c8a15bc93fc",
+      "bundle_count": 174
+    },
+    "steel-bottom": {
+      "bytes": 2830924,
+      "nodes": 1,
+      "sha256": "03d70e797ad906eb7647c4580f5d9abaaf78583707d996f8dfaeffd471c54a83",
+      "bundle_count": 76
+    }
+  },
+  "notes": [
+    "用户确认暂无当地转换参数，先近似定位。地图定位不能作为测量坐标转换成果。",
+    "三参数及120E中央子午线用于区域浏览；桥梁与工程地形共用刚性定位，内部尺寸和相对关系保持不变。",
+    "当地四/七参数及85高程与椭球高转换参数未提供；可在页面微调东西、南北、高程和方向，设置仅保存在当前浏览器。",
+    "全球环境地形采用Tilezen Terrain Tiles公开DEM；工程区局部融合原图262点TIN和设计河床，保留原始高度、无竖向夸大。",
+    "周边影像/地图为在线服务；全球DEM与工程测绘年代、分辨率和高程基准可能不同。",
+    "大场景采用合并模型；腹板束42、顶板束174、底板束76可分别按需加载和显隐。钢束透视可降低桥梁不透明度；单元选择及测量可进入桥梁细部查看器。",
+    "河床-2.80m为设计高程，水面+2.20m为最高通航参考水位，不是实时水位。"
+  ],
+  "sources": [
+    {
+      "title": "CesiumJS",
+      "url": "https://cesium.com/learn/cesiumjs/ref-doc/"
+    },
+    {
+      "title": "Terrain Tiles / Tilezen",
+      "url": "https://registry.opendata.aws/terrain-tiles/"
+    },
+    {
+      "title": "Terrain attribution",
+      "url": "https://github.com/tilezen/joerd/blob/master/docs/attribution.md"
+    },
+    {
+      "title": "EPSG 2437 投影定义参考",
+      "url": "https://epsg.io/2437"
+    }
+  ]
+}
