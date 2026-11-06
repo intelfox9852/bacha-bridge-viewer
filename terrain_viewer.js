@@ -1,3 +1,4 @@
+import {createSiteFeatures} from './site_features.js?v=692cd67c8c3a';
 import * as T from 'three/webgpu';
 
 // Terrain retains its survey coordinates and elevations independently of bridge
@@ -6,14 +7,16 @@ export async function createTerrainBasemap({scene,renderer,camera,controls,inval
  const $=id=>document.getElementById(id),button=$('terrainToggle'),viewButton=$('terrainView'),opacity=$('terrainOpacity'),status=$('terrainStatus');
  const surfaceButton=$('terrainSurface'),shadeButton=$('terrainShade'),pointButton=$('terrainPoints'),detailButton=$('terrainDetail');
  const planButton=$('terrainPlan'),bedButton=$('riverBedToggle'),waterButton=$('riverWaterToggle'),waterOpacity=$('riverWaterOpacity');
- const response=await fetch('./地形底图配准.json?v=694c8583bb7e');if(!response.ok)throw new Error('配准文件 HTTP '+response.status);
+ const response=await fetch('./地形底图配准.json?v=692cd67c8c3a');if(!response.ok)throw new Error('配准文件 HTTP '+response.status);
  const metadata=await response.json(),root=new T.Group();root.name='测绘地形';
  const plan=new T.Group(),context=new T.Group(),land=new T.Group();plan.name='0m参考面底图';context.name='河道镂空参考底图';land.name='实测点插值陆域地表';root.add(plan,context,land);
  let shown=true,isolated=false,is3D=true,heightColors=true,pointsVisible=false,surface=null,pointCloud=null;
- let river=null,bedMesh=null,waterMesh=null,planWater=null,bedShown=true,waterShown=true;
+ let features=null,planLand=null,planPonds=null;let river=null,bedMesh=null,waterMesh=null,planWater=null,bedShown=true,waterShown=true;
  const suffix=metadata.revision?'?v='+encodeURIComponent(metadata.revision):'';
  const sync=()=>{
-  root.visible=shown&&!isolated;plan.visible=!is3D||!river;context.visible=is3D;land.visible=is3D;pointCloud&&(pointCloud.visible=is3D&&pointsVisible);
+  root.visible=shown&&!isolated;features?.sync(shown&&!isolated&&is3D);plan.visible=Boolean(surface)&&(!is3D||!river);context.visible=is3D&&Boolean(surface);land.visible=is3D;pointCloud&&(pointCloud.visible=is3D&&pointsVisible);
+  if(planLand)planLand.visible=!is3D&&Boolean(features?.batches.get('改造陆地')?.mesh.visible);
+  if(planPonds)planPonds.visible=!is3D&&Boolean(features?.batches.get('池塘')?.mesh.visible);
   if(river){bedMesh.visible=is3D&&bedShown;waterMesh.visible=is3D&&waterShown;planWater.visible=!is3D&&waterShown}
   button.textContent=shown?'地形：显示':'地形：隐藏';button.setAttribute('aria-pressed',String(shown));
   surfaceButton.textContent='显示三维地形';surfaceButton.setAttribute('aria-pressed',String(is3D));planButton.setAttribute('aria-pressed',String(!is3D));
@@ -42,6 +45,12 @@ export async function createTerrainBasemap({scene,renderer,camera,controls,inval
  }catch(error){root.traverse(o=>{o.geometry?.dispose();o.material?.map?.dispose();o.material?.dispose()});throw error}
  try{
   const response=await fetch('./terrain/surface.json'+suffix);if(!response.ok)throw new Error('高程数据 HTTP '+response.status);surface=await response.json();
+  // Crop both planar and 3D background to the measured TIN. Do not keep
+  // rectangular raster fallback outside elevation coverage.
+  for(let i=0;i<surface.meshes.length;i++){
+   const m=surface.meshes[i],g=new T.BufferGeometry(),[xmin,xmax,ymin,ymax]=m.bounds;
+   g.setAttribute('position',new T.Float32BufferAttribute(m.v.flatMap(([x,y])=>[x,metadata.plan_elevation,-y]),3));g.setAttribute('uv',new T.Float32BufferAttribute(m.v.flatMap(([x,y])=>[(x-xmin)/(xmax-xmin),(y-ymin)/(ymax-ymin)]),2));g.setIndex(m.f.flat());plan.children[i].geometry.dispose();plan.children[i].geometry=g;plan.children[i].position.set(0,0,0);
+  }
   const [zmin,zmax]=surface.height_range;
   const stops=[[zmin,0x487fa7],[1.5,0x4a8a67],[2.5,0x82a86c],[3.3,0xb8bc84],[zmax,0xd5bb8a]];
   const elevationColor=z=>{let i=stops.findIndex((p,i)=>i>0&&z<=p[0]);if(i<1)i=stops.length-1;const a=stops[i-1],b=stops[i];return new T.Color(a[1]).lerp(new T.Color(b[1]),Math.max(0,Math.min(1,(z-a[0])/(b[0]-a[0]))))};
@@ -61,8 +70,8 @@ export async function createTerrainBasemap({scene,renderer,camera,controls,inval
  try{
   const response=await fetch('./terrain/river.json'+suffix);if(!response.ok)throw new Error('河道模型 HTTP '+response.status);const data=await response.json();
   const geometryOf=m=>{const g=new T.BufferGeometry();g.setAttribute('position',new T.Float32BufferAttribute(m.v.flatMap(([x,y,z])=>[x,z,-y]),3));g.setIndex(m.f.flat());g.computeVertexNormals();g.computeBoundingSphere();return g};
-  for(let i=0;i<data.reference_tiles.length;i++){
-   const m=data.reference_tiles[i],g=geometryOf(m),[xmin,xmax,ymin,ymax]=m.bounds;
+  for(let i=0;i<(surface?.meshes.length||0);i++){
+   const m=surface.meshes[i],g=plan.children[i].geometry.clone(),[xmin,xmax,ymin,ymax]=m.bounds;
    g.setAttribute('uv',new T.Float32BufferAttribute(m.v.flatMap(([x,y])=>[(x-xmin)/(xmax-xmin),(y-ymin)/(ymax-ymin)]),2));
    context.add(new T.Mesh(g,plan.children[i].material.clone()));
   }
@@ -91,5 +100,20 @@ export async function createTerrainBasemap({scene,renderer,camera,controls,inval
   const span=210;camera.left=-span/2;camera.right=span/2;camera.top=span/2*innerHeight/innerWidth;camera.bottom=-camera.top;camera.zoom=1;camera.updateProjectionMatrix();
   const target=new T.Vector3(-40,4,0);controls.target.copy(target);camera.position.copy(target).add(new T.Vector3(60,38,155));camera.up.set(0,1,0);controls.update();invalidate();
  };
- sync();return {root,plan,context,land,metadata,surface,river,bedMesh,waterMesh,planWater,pointCloud,setIsolated(value){isolated=value;sync()},get shown(){return shown},get is3D(){return is3D}};
+ try{
+  features=await createSiteFeatures({root,camera,controls,invalidate,beforeFrame:()=>{beforeFrame();shown=true;is3D=true;isolated=false;sync()}});
+  planLand=new T.Group();planLand.name='平面池塘改陆地';root.add(planLand);
+  for(const f of features.data.features.filter(f=>f.kind==='改造陆地')){
+   const g=new T.BufferGeometry();g.setAttribute('position',new T.Float32BufferAttribute(f.v.flatMap(([x,y])=>[x,metadata.plan_elevation+.06,-y]),3));g.setIndex(f.f.flat());
+   const mesh=new T.Mesh(g,new T.MeshBasicMaterial({color:0x718665,side:T.DoubleSide}));mesh.renderOrder=3;planLand.add(mesh);
+  }
+  document.querySelector('input[data-site-kind="改造陆地"]')?.addEventListener('change',sync);
+  planPonds=new T.Group();planPonds.name='平面保留池塘';root.add(planPonds);
+  for(const f of features.data.features.filter(f=>f.kind==='池塘')){
+   const g=new T.BufferGeometry();g.setAttribute('position',new T.Float32BufferAttribute(f.v.flatMap(([x,y])=>[x,metadata.plan_elevation+.06,-y]),3));g.setIndex(f.f.flat());
+   const mesh=new T.Mesh(g,new T.MeshBasicMaterial({color:0x3f91ad,side:T.DoubleSide}));mesh.renderOrder=3;planPonds.add(mesh);
+  }
+  document.querySelector('input[data-site-kind="池塘"]')?.addEventListener('change',sync);
+ }catch(e){console.warn(e);$('terrainNote').textContent+=' 地物模型未加载，可刷新重试。'}
+ sync();return {features,root,plan,context,land,planLand,planPonds,metadata,surface,river,bedMesh,waterMesh,planWater,pointCloud,setIsolated(value){isolated=value;sync()},get shown(){return shown},get is3D(){return is3D}};
 }

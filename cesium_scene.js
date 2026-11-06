@@ -1,8 +1,8 @@
-import {makeProjectSampler,makeEnvironmentTerrain} from './cesium_terrain.js?v=694c8583bb7e';
-import {setupObliqueLayer} from './oblique_layer.js?v=694c8583bb7e';
+import {makeProjectSampler,makeEnvironmentTerrain} from './cesium_terrain.js?v=692cd67c8c3a';
+import {setupObliqueLayer} from './oblique_layer.js?v=692cd67c8c3a';
 const C=window.Cesium,$=id=>document.getElementById(id),rev=new URL(import.meta.url).searchParams.get('v')||'local',url=name=>'./'+name+'?v='+encodeURIComponent(rev);
 const stats={demTiles:0,demFailures:0,terrainTiles:0,imageryTiles:0,imageryFailures:0},models={},layers={},settings={east:0,north:0,height:0,yaw:0};let viewer,frame,config,sampler,ready=false,imageryMode='satellite';
-const steelControls={'steel-web':'steelWeb','steel-top':'steelTop','steel-bottom':'steelBottom'},modelControls={bridge:'bridgeLayer',terrain:'projectLayer',water:'waterLayer',...steelControls},pendingModels=new Map();
+const steelControls={'steel-web':'steelWeb','steel-top':'steelTop','steel-bottom':'steelBottom'},modelControls={bridge:'bridgeLayer',terrain:'projectLayer',water:'waterLayer','site-buildings':'siteBuildings','site-roads':'siteRoads','site-walls':'siteWalls','site-land':'siteLand','site-ponds':'sitePonds',...steelControls},pendingModels=new Map();
 function updateBridgeAlpha(){if(models.bridge){const transparent=$('steelXray').checked&&Object.values(steelControls).some(id=>$(id).checked);models.bridge.color=new C.Color(1,1,1,transparent ? .22 : 1);viewer.scene.requestRender()}}
 function error(message){$('error').hidden=false;$('error').textContent=message}
 function updateStatus(){if(!viewer)return;$('status').textContent=`Cesium ${C.VERSION} · ${window.CESIUM_EXPERIMENT ? viewer.scene.context.rendererType+' 试验版 · ' : ''}${ready?'桥梁与工程地形已加载':'正在加载工程模型…'} · 环境DEM ${stats.demTiles}片 · 影像 ${stats.imageryTiles}片`+(stats.demFailures?' · 部分DEM请求失败，局部回退参考面':'');viewer.scene.requestRender()}
@@ -71,8 +71,9 @@ async function main(){
  const offline=await C.TileMapServiceImageryProvider.fromUrl(C.buildModuleUrl('Assets/Textures/NaturalEarthII'));layers.offline=viewer.imageryLayers.addImageryProvider(offline);setImagery('satellite');frameView('bridge',false);
  $('alignment').textContent=`北京54通用参数近似定位 ${frame.longitude.toFixed(7)}°E / ${frame.latitude.toFixed(7)}°N`;$('alignment').title=config.notes.join('\n');
  for(const button of document.querySelectorAll('[data-view]'))button.onclick=()=>frameView(button.dataset.view);
+ if($('siteView'))$('siteView').onclick=()=>{$('projectLayer').checked=true;if(models.terrain)models.terrain.show=true;viewer.terrainProvider=terrain();frameView('bridge')};
  $('imagery').onchange=()=>setImagery($('imagery').value);$('dem').onchange=()=>{viewer.terrainProvider=terrain();viewer.scene.requestRender()};
- for(const [id,kind] of [['bridgeLayer','bridge'],['projectLayer','terrain'],['waterLayer','water']])$(id).onchange=()=>{if(models[kind])models[kind].show=$(id).checked;if(kind==='terrain')viewer.terrainProvider=terrain();viewer.scene.requestRender()};
+ for(const [id,kind] of [['bridgeLayer','bridge'],['projectLayer','terrain'],['waterLayer','water'],['siteBuildings','site-buildings'],['siteRoads','site-roads'],['siteWalls','site-walls'],['siteLand','site-land'],['sitePonds','site-ponds']])if($(id))$(id).onchange=()=>{if(models[kind])models[kind].show=$(id).checked;if(kind==='terrain')viewer.terrainProvider=terrain();viewer.scene.requestRender()};
  $('waterAlpha').oninput=()=>{if(models.water)models.water.color=new C.Color(1,1,1,Number($('waterAlpha').value)/100);viewer.scene.requestRender()};
  for(const [kind,id] of Object.entries(steelControls))$(id).onchange=async()=>{updateBridgeAlpha();if(!$(id).checked){if(models[kind])models[kind].show=false;viewer.scene.requestRender();return}try{$('hint').textContent='正在加载'+$(id).parentElement.textContent.trim()+'…';const m=await loadModel(kind);m.show=$(id).checked;$('hint').textContent='钢束已按图纸分组；可独立显隐，或进入桥梁细部查看。';viewer.scene.requestRender()}catch(e){$(id).checked=false;updateBridgeAlpha();error('钢束加载失败：'+e.message)}};
  $('steelXray').onchange=updateBridgeAlpha;
@@ -81,6 +82,6 @@ async function main(){
  addEventListener('keydown',e=>{if((e.key==='h'||e.key==='H')&&!['INPUT','SELECT','TEXTAREA'].includes(document.activeElement?.tagName))$('menu').click()});
  const oblique=setupObliqueLayer(C,viewer);
  window.cesiumBridge={viewer,models,stats,config,settings,sampler,frameView,setImagery,oblique,get frame(){return frame},get ready(){return ready},get imageryMode(){return imageryMode}};
- updateStatus();await Promise.all(['bridge','terrain','water'].map(loadModel));ready=true;updateStatus();
+ updateStatus();await Promise.all(['bridge','terrain','water'].map(loadModel));if($('siteBuildings'))await Promise.all(['site-buildings','site-roads','site-walls','site-land','site-ponds'].filter(k=>config.assets[k]).map(loadModel));ready=true;updateStatus();
 }
 main().catch(e=>{console.error(e);error('Cesium大场景加载失败：'+e.message+'。可返回桥梁细部查看器。')});

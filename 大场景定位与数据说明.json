@@ -55,6 +55,42 @@
       "nodes": 1,
       "sha256": "03d70e797ad906eb7647c4580f5d9abaaf78583707d996f8dfaeffd471c54a83",
       "bundle_count": 76
+    },
+    "site-buildings": {
+      "bytes": 170020,
+      "nodes": 1,
+      "sha256": "6c05b70ed6ebbe779566e934b5ea99bf87f84b651efbe8c81f6da613f32a325f",
+      "feature_count": 318
+    },
+    "site-roads": {
+      "bytes": 29324,
+      "nodes": 1,
+      "sha256": "6086c572c1700571d345a856b6af0cb664280e5aaa61e7892501a199dc26d510",
+      "feature_count": 28
+    },
+    "site-walls": {
+      "bytes": 7864,
+      "nodes": 1,
+      "sha256": "3c4c4e0694534268d264f96a1b1712f5db6057f1f1c14d046cc63edc8aeefefe",
+      "feature_count": 19
+    },
+    "site-land": {
+      "bytes": 75704,
+      "nodes": 1,
+      "sha256": "9ff0c37189cee9b8217ca942eccd44cd9018a1fc3fec08feb6af15f872a5f44a",
+      "feature_count": 3
+    },
+    "site-ponds": {
+      "bytes": 68076,
+      "nodes": 1,
+      "sha256": "3a0d29ac18962b2b61910732d08745f5f86c830ce0abba3840af6a7eac5e8379",
+      "feature_count": 5
+    },
+    "site-all": {
+      "bytes": 345944,
+      "nodes": 1,
+      "sha256": "d4ab192ceec4d4ce8ce3ca3ece386d9fab47212978edcb14316097d312997ddf",
+      "feature_count": 373
     }
   },
   "notes": [
