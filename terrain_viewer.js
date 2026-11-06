@@ -1,4 +1,4 @@
-import {createSiteFeatures} from './site_features.js?v=692cd67c8c3a';
+import {createSiteFeatures} from './site_features.js?v=42f9d4945ec6';
 import * as T from 'three/webgpu';
 
 // Terrain retains its survey coordinates and elevations independently of bridge
@@ -7,7 +7,7 @@ export async function createTerrainBasemap({scene,renderer,camera,controls,inval
  const $=id=>document.getElementById(id),button=$('terrainToggle'),viewButton=$('terrainView'),opacity=$('terrainOpacity'),status=$('terrainStatus');
  const surfaceButton=$('terrainSurface'),shadeButton=$('terrainShade'),pointButton=$('terrainPoints'),detailButton=$('terrainDetail');
  const planButton=$('terrainPlan'),bedButton=$('riverBedToggle'),waterButton=$('riverWaterToggle'),waterOpacity=$('riverWaterOpacity');
- const response=await fetch('./地形底图配准.json?v=692cd67c8c3a');if(!response.ok)throw new Error('配准文件 HTTP '+response.status);
+ const response=await fetch('./地形底图配准.json?v=42f9d4945ec6');if(!response.ok)throw new Error('配准文件 HTTP '+response.status);
  const metadata=await response.json(),root=new T.Group();root.name='测绘地形';
  const plan=new T.Group(),context=new T.Group(),land=new T.Group();plan.name='0m参考面底图';context.name='河道镂空参考底图';land.name='实测点插值陆域地表';root.add(plan,context,land);
  let shown=true,isolated=false,is3D=true,heightColors=true,pointsVisible=false,surface=null,pointCloud=null;

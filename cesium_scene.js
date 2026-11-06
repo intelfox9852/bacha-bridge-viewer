@@ -1,5 +1,5 @@
-import {makeProjectSampler,makeEnvironmentTerrain} from './cesium_terrain.js?v=692cd67c8c3a';
-import {setupObliqueLayer} from './oblique_layer.js?v=692cd67c8c3a';
+import {makeProjectSampler,makeEnvironmentTerrain} from './cesium_terrain.js?v=42f9d4945ec6';
+import {setupObliqueLayer} from './oblique_layer.js?v=42f9d4945ec6';
 const C=window.Cesium,$=id=>document.getElementById(id),rev=new URL(import.meta.url).searchParams.get('v')||'local',url=name=>'./'+name+'?v='+encodeURIComponent(rev);
 const stats={demTiles:0,demFailures:0,terrainTiles:0,imageryTiles:0,imageryFailures:0},models={},layers={},settings={east:0,north:0,height:0,yaw:0};let viewer,frame,config,sampler,ready=false,imageryMode='satellite';
 const steelControls={'steel-web':'steelWeb','steel-top':'steelTop','steel-bottom':'steelBottom'},modelControls={bridge:'bridgeLayer',terrain:'projectLayer',water:'waterLayer','site-buildings':'siteBuildings','site-roads':'siteRoads','site-walls':'siteWalls','site-land':'siteLand','site-ponds':'sitePonds',...steelControls},pendingModels=new Map();

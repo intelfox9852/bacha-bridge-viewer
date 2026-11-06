@@ -1,21 +1,21 @@
 {
-  "revision": "692cd67c8c3a",
-  "updated_utc": "2026-11-06T01:50:42.238431+00:00",
-  "components": 3422,
-  "render_batches": 17,
+  "revision": "42f9d4945ec6",
+  "updated_utc": "2026-11-06T02:05:19.849261+00:00",
+  "components": 3430,
+  "render_batches": 20,
   "bearing_plinths": 2184,
   "terrain_tiles": 4,
-  "geometry_sha256": "12e4aec56e508ed7c4cde46c336bd237ab2676852d260c7bcc4ae2e31d48da13",
+  "geometry_sha256": "c512acdb87e108332dca8c33692747e6db886f37644de82147719bdfef63570f",
   "files": {
     "支座垫石参数.json": "21344b6a0f9595e7958ca922dd1449e9d53f8ae526b4b937881c5e79a4ec2149",
     "节段与联划分.json": "cefdce59ad8cc3355aaa0e3a647bdb68aeb8f16201c1331bcea39d4961c087db",
-    "geometry.json": "12e4aec56e508ed7c4cde46c336bd237ab2676852d260c7bcc4ae2e31d48da13",
-    "geometry.json.gz": "cd6b06c4c851555386a0b7e6a424e74e111cd0a42b75a6ba70e1c9c528c090f0",
-    "gpu_viewer.js": "2b4a41e1b58a21c0a036aaa520e2b40f9e0841a6968bc05e71830a8dd92b1054",
+    "geometry.json": "c512acdb87e108332dca8c33692747e6db886f37644de82147719bdfef63570f",
+    "geometry.json.gz": "055ab48cab6fd18d8336f7e30a03bfa7a387df9b127f032d9d636f8737e60685",
+    "gpu_viewer.js": "734f6ca3a04e709df5672daf5b3c994d95efcf67d1b1fbf8eaf0c250c4d2f5b9",
     "墩台编号.json": "a51ab50e1747593541720eef9c2622e00139634a1389abc32d74e289d11c2266",
     "上部构造剖面预览.json": "8bce84c60e49aedff84183b9f2717afc73f9693389bbb17f6e80d0ee896e9aeb",
     "上部结构一般构造参数.json": "533757294b9917e50b4168e2b2d69e948fc54f1ace6ef32068b5460719b4a376",
-    "建模依据与待核验项.txt": "2b69e2228d96c0584ee0ef43cc808d66ee1839d3e86df8b90ecd62e5b69177dd",
+    "建模依据与待核验项.txt": "248cd4d65d8404fa4262ba3a79ecdef892f7c3ee6ced574a1f4f11618cdbbbce",
     "图纸版本选用表.json": "f0fd3aca78bc03ff1d300c2b6d4ce9370de638bee89342fa105fa7c4af1f2ba5",
     "护栏C版截面.json": "3a513930616f2ebddcacc89fb782380c601a02f9e6c278e6c468f6f7ac5d4fd6",
     "引桥盖梁C版参数.json": "6f427a578472ff44d93f5733bb7e3cd09d06673f53d74583280103119e84d5f3",
@@ -26,8 +26,8 @@
     "SII-4C总图控制参数.json": "b1483f73e800e79b4664da0bd6638c728cff9994c10a0161ca5c10b03912c501",
     "SII-60C桥台建模依据.json": "18fd06347b60c37cebe0516e9849386078711b446559ba165e484410781bf7d3",
     "西端桥台移置说明.json": "18334bfaa24d8b3a45d984fc494e1239b69d86bb4d6902df810c1b088b9b26cc",
-    "terrain_viewer.js": "ac08f49749eea57b8256522baa5c495aa6dd39a80cf6b0f890fdf115075db6a9",
-    "地形底图配准.json": "bac2535e5134a1e8c69ae52ba2a34fe5f0aab2a68053d135ea6f25808ab32760",
+    "terrain_viewer.js": "3cf2c4856f81df828ec54059b8ada6f8ee2ad449aa3e2a8de076331b06f6934a",
+    "地形底图配准.json": "1cd3e8206c8140aa3b93e897541d145a14ffbcaea4768bd3f515071077338cc0",
     "terrain/surface.json": "d98b123fb50863fa7699b056644b8f4c13e0fa175e1334229b4061844447876b",
     "terrain/river.json": "3281e12e5f48454607e619e79eb44e8047d15924b4872b51a646b27d79b407a0",
     "河床与水体建模依据.json": "b7044cd28106e30b5b466daba80e1a7dc05d54373186399b0a59f0a14bc3bbc8",
@@ -38,13 +38,13 @@
     "terrain/survey-1-0.png": "64250da11937941a734163799cb14101c1884446da2ec4ed74703ec5a5d23f8c",
     "terrain/survey-1-1.png": "4da178155db07eca17a71e498cd466211201a7aab8735854fc96703e4c395c4e",
     "预应力分组.json": "718a84f28fa6d4247ed70de1a8a4f637a0b3390c89a709418495a2e7f54b311b",
-    "cesium.html": "0c7d5f5859b967cc5e8b649bba1b75b82fd4df3377596583ce8d5d56e8146aec",
-    "cesium_scene.js": "f38301b69f5f20bc682d531f68a56c689443e31e4fae24a129d0c7521b51fd95",
+    "cesium.html": "a3c4bd41dee0c04052f33af31cd0cf2c379f066579f372f18b143da6f1fbc660",
+    "cesium_scene.js": "1a4ea4171142654808c6fe1b8ce642e1a7597e155b0f7ddfb827bca8e9c315a0",
     "cesium_terrain.js": "5601c824cb3a43fac365093f7b8e03e41c2c8d7f0be904b397262abf81c06830",
-    "大场景定位与数据说明.json": "aa77d1bdcda869c3ba57f192b525a115828b1de4efbaf5247d6e4f489c632704",
+    "大场景定位与数据说明.json": "b93b221d920d98a41a2d96e42e6f47a608bc0964c54619fc27a40154093e56b5",
     "vendor/cesium/Cesium.js": "ca180396f07e0c96f5f53b4d18d95ffab7a8a2b5cc115aa9a6fe7037a043c2c7",
     "vendor/proj4.js": "af7df653d91ea591f33d26fb958990bbd3071b2db644a4edaba441cc9861a474",
-    "scene-assets/bridge.glb": "ad7e987f4c238a2919c89edb90eef390bf6a181076454d0da47b4572bd34db17",
+    "scene-assets/bridge.glb": "c9e88e50417ebec774dc640b7a5d67a1bd8ad62840010d82c0c0d41dca666f24",
     "scene-assets/site-all.glb": "d4ab192ceec4d4ce8ce3ca3ece386d9fab47212978edcb14316097d312997ddf",
     "scene-assets/site-buildings.glb": "6c05b70ed6ebbe779566e934b5ea99bf87f84b651efbe8c81f6da613f32a325f",
     "scene-assets/site-land.glb": "9ff0c37189cee9b8217ca942eccd44cd9018a1fc3fec08feb6af15f872a5f44a",
@@ -58,13 +58,14 @@
     "scene-assets/water.glb": "e8ce99a3b1321360a60ba4d618efa608249c35ae4a40d8dbd53ad53c7186450c",
     "oblique_layer.js": "a6dd97e67d2e88bcb69692c7d95027f0e930d78540eaffe6b7a17dd0b2f97876",
     "倾斜摄影加载说明.txt": "e58036a7103dcdb3c5d38c7622cdcffb4b21ab7340f374eef4edd670b244edaf",
-    "site_features.js": "e6d10e48db350ef78c3b7893fce22b371e1f07c4ec5188edff0bd3e467e9cc92",
+    "site_features.js": "19275f89b4ff339763685ddda78f5514002264d949d5b8d38bd355eee9f26232",
     "地物模型.json": "c8974f37b190801a47a5a42d7ba9380439e55fcb03b5a43c22413ef0aca387a5",
     "地物模型.json.gz": "3b0a8cd44225686659d10b3a92ff5d2409c6a7a80422e51594aa44063cfd57e3",
     "地物清单.csv": "e46ba3d07c7a552c1a943f4e1a7cc11516329388c1620c5a9161881476b6fe64",
     "地物调整记录.json": "f9e1a81bbcfcc86e0e27e7bf722bf3f05d57d282113ed3da1091acebfc28e736",
     "建筑外观模型说明.txt": "d5058d07fb86b5bc2580253222f4dcdf42f9a25d64b9f6d5231fde9b92d8f9fe",
-    "index.html": "211d3a1f3103c3e51e363119468e501caf3e4f5fb6b70b932b9edaf8af08329b"
+    "梯道建模依据.json": "96f36d08536255869f1f30905b64c1b3e5265d2ff1f7890794b26066a7cbfa4e",
+    "index.html": "d1576c062ea9ba1b0032bffa11bf63aaf74e11dc49bb60e956956f5dc2de3aec"
   },
   "terrain_surface": {
     "observations": 262,
@@ -113,5 +114,105 @@
       "围护边界": 19
     },
     "removed_clearance_buildings": 13
-  }
+  },
+  "stairs": [
+    {
+      "pier": 13,
+      "side": "南侧",
+      "station_range_m": [
+        827.74,
+        887.44
+      ],
+      "length_m": 59.7,
+      "width_m": 3.5,
+      "clear_tread_width_m": 1.9,
+      "treads_per_flight": [
+        15,
+        15,
+        20,
+        20,
+        20,
+        20
+      ],
+      "tread_depth_m": 0.4,
+      "riser_m": 0.1,
+      "landing_levels_m": [
+        2.612,
+        4.212,
+        5.811999999999999,
+        7.911999999999999,
+        10.011999999999999,
+        12.111999999999998,
+        14.211999999999998
+      ],
+      "pile_count": 8,
+      "pile_toe_levels_m": [
+        -16.108,
+        -16.108,
+        -15.435,
+        -15.235,
+        -15.235,
+        -15.235,
+        -15.235,
+        -15.235
+      ],
+      "deck_connection_opening_station_m": [
+        884.94,
+        887.44
+      ],
+      "deck_edge_levels_m": [
+        14.397401878579645,
+        14.441227014096173
+      ]
+    },
+    {
+      "pier": 16,
+      "side": "南侧",
+      "station_range_m": [
+        1108.0,
+        1167.7
+      ],
+      "length_m": 59.7,
+      "width_m": 3.5,
+      "clear_tread_width_m": 1.9,
+      "treads_per_flight": [
+        15,
+        15,
+        20,
+        20,
+        20,
+        20
+      ],
+      "tread_depth_m": 0.4,
+      "riser_m": 0.1,
+      "landing_levels_m": [
+        2.693,
+        4.293,
+        5.893000000000001,
+        7.993,
+        10.093,
+        12.193,
+        14.293
+      ],
+      "pile_count": 8,
+      "pile_toe_levels_m": [
+        -16.108,
+        -16.108,
+        -16.935,
+        -16.935,
+        -16.935,
+        -16.935,
+        -16.935,
+        -16.935
+      ],
+      "deck_connection_opening_station_m": [
+        1108.0,
+        1110.5
+      ],
+      "deck_edge_levels_m": [
+        14.51799401239954,
+        14.475929765174131
+      ]
+    }
+  ]
 }
