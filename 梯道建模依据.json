@@ -48,7 +48,12 @@
       "deck_edge_levels_m": [
         14.397401878579645,
         14.441227014096173
-      ]
+      ],
+      "top_landing_rail_curb_m": {
+        "width": 0.3,
+        "height": 0.2,
+        "clear_width_between_curbs": 1.9
+      }
     },
     {
       "pier": 16,
@@ -97,7 +102,12 @@
       "deck_edge_levels_m": [
         14.51799401239954,
         14.475929765174131
-      ]
+      ],
+      "top_landing_rail_curb_m": {
+        "width": 0.3,
+        "height": 0.2,
+        "clear_width_between_curbs": 1.9
+      }
     }
   ],
   "notes": [

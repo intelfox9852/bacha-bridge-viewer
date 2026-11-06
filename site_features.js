@@ -3,8 +3,8 @@ import * as T from 'three/webgpu';
 const colors={'建筑':0xc5c3b9,'简易房':0xc7bba5,'棚房':0xb6aa8b,'道路铺面':0x596167,'围护边界':0xa49e8e,'改造陆地':0x718665,'池塘':0x3f91ad};
 export async function createSiteFeatures({root,camera,controls,invalidate,beforeFrame}){
  let data;
- if(typeof DecompressionStream!=='undefined')try{const response=await fetch('./地物模型.json.gz?v=42f9d4945ec6');if(response.ok&&response.body)data=await new Response(response.body.pipeThrough(new DecompressionStream('gzip'))).json()}catch(error){console.warn('地物压缩数据不可用，回退JSON',error)}
- if(!data){const response=await fetch('./地物模型.json?v=42f9d4945ec6');if(!response.ok)throw Error('地物数据 HTTP '+response.status);data=await response.json()}
+ if(typeof DecompressionStream!=='undefined')try{const response=await fetch('./地物模型.json.gz?v=9b40aa817348');if(response.ok&&response.body)data=await new Response(response.body.pipeThrough(new DecompressionStream('gzip'))).json()}catch(error){console.warn('地物压缩数据不可用，回退JSON',error)}
+ if(!data){const response=await fetch('./地物模型.json?v=9b40aa817348');if(!response.ok)throw Error('地物数据 HTTP '+response.status);data=await response.json()}
  const group=new T.Group();group.name='原地形图三维地物';root.add(group);
  const pickables=[],batches=new Map();let selected=null,highlight=null,displayMode=1;
  for(const f of data.features){let b=batches.get(f.kind);if(!b){b={kind:f.kind,p:[],c:[],idx:[],w:[],ranges:[]};batches.set(f.kind,b)}const off=b.p.length/3,r=f.render||f;for(let j=0;j<r.v.length;j++){const [x,y,z]=r.v[j];b.p.push(x,z,-y);if(r.c)b.c.push(...r.c[j]);else{const color=new T.Color(colors[f.kind]).multiplyScalar(f.height_m===null?1:z>f.top_m-.01?1.06:.8);b.c.push(color.r,color.g,color.b)}}for(const face of r.f)for(const i of face)b.idx.push(i+off);for(const edge of r.w)for(const i of edge)b.w.push(i+off);b.ranges.push({end:b.idx.length/3,feature:f})}

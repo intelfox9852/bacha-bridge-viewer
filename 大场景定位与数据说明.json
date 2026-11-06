@@ -23,10 +23,10 @@
   ],
   "assets": {
     "bridge": {
-      "bytes": 11084888,
+      "bytes": 11095448,
       "nodes": 14,
-      "sha256": "c9e88e50417ebec774dc640b7a5d67a1bd8ad62840010d82c0c0d41dca666f24",
-      "triangles": 603556
+      "sha256": "41105fe35d023a7c50370e567ac10a866b55e9493717e83e1b2f650aa7742d79",
+      "triangles": 604116
     },
     "terrain": {
       "bytes": 2233348,
