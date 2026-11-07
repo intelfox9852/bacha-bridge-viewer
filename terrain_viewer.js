@@ -1,5 +1,52 @@
-import {createSiteFeatures} from './site_features.js?v=9b40aa817348';
+import {createSiteFeatures} from './site_features.js?v=14c89545d6f9';
 import * as T from 'three/webgpu';
+import {cameraPosition, color, dot, exp, float, mix, normalize, positionWorld, reflector, sin, uniform, vec2, vec3} from './vendor/three.tsl.js';
+
+function referenceWaterMaterial(clock, opacity, strength=1, reflection=null){
+ const p=positionWorld.xz;
+ const flow=clock.mul(.18);
+ const waveA=sin(p.x.mul(1.67).add(p.y.mul(.93)).add(flow));
+ const waveB=sin(p.x.mul(1.13).sub(p.y.mul(2.10)).sub(flow.mul(.7)));
+ const normal=normalize(vec3(waveA.mul(.005),1,waveB.mul(.004)));
+ const view=normalize(cameraPosition.sub(positionWorld));
+ const grazing=float(1).sub(dot(view,normal).clamp(0,1)).pow(3);
+ // A broad, soft environment highlight like the reference recording. The
+ // normal ripples affect shading only, leaving the surveyed water level fixed.
+ const cameraAxis=normalize(cameraPosition.xz.sub(vec2(-5,0)));
+ const across=vec2(cameraAxis.y,cameraAxis.x.negate());
+ const bandDistance=dot(p.sub(vec2(-9,0)),across).div(18);
+ const band=exp(bandDistance.mul(bandDistance).negate().mul(.65));
+ const longWave=sin(p.x.mul(.023).add(p.y.mul(.017)).add(clock.mul(.04)));
+ const body=mix(color(0x133d60),color(0x245f88),longWave.mul(.14).add(.4));
+ const shimmer=waveA.mul(waveB).mul(.008*strength);
+ const highlight=band.mul(.42*strength).add(grazing.mul(.10*strength)).add(shimmer);
+ let top=body.add(color(0x8bb9df).mul(highlight));
+ if(reflection){
+  const reflected=reflection.sample(reflection.uvNode.add(vec2(waveA,waveB).mul(.00075))).level(1.4);
+  const fresnel=float(1).sub(dot(view,normal).clamp(0,1)).pow(5).mul(.98).add(.02);
+  top=mix(body,reflected.rgb.mul(vec3(.52,.75,1)),fresnel);
+ }
+ const material=new T.MeshBasicNodeMaterial({transparent:opacity<1,opacity,side:T.FrontSide,depthWrite:false});
+ material.colorNode=mix(color(0x164563),top,positionWorld.y.sub(-2.8).div(5).clamp(0,1));
+ return material;
+}
+
+function createRiverReflection(root, scene, level){
+ const mirror=reflector({resolutionScale:.5,generateMipmaps:true,bounces:false});
+ mirror.target.rotation.x=-Math.PI/2;mirror.target.position.y=level;root.add(mirror.target);
+ // Only the reflected camera sees the sky environment. It illuminates the
+ // reflection texture without changing the engineering model's materials.
+ const direction=normalize(positionWorld);
+ const sky=new T.MeshBasicNodeMaterial({side:T.BackSide,depthWrite:false});
+ const skyGradient=mix(color(0xc3d9df),color(0x537ea6),direction.y.clamp(0,1).pow(.5));
+ const sun=dot(direction,normalize(vec3(-.20,.65,-.73))).max(0);
+ const cloud=sin(direction.x.mul(9).add(direction.z.mul(4))).mul(.03);
+ sky.colorNode=skyGradient.add(vec3(1.1,1.02,.85).mul(sun.pow(28))).add(cloud);
+ const dome=new T.Mesh(new T.SphereGeometry(2200,32,16),sky);dome.name='水面反射天空';dome.layers.set(31);scene.add(dome);
+ const getCamera=mirror.reflector.getVirtualCamera.bind(mirror.reflector);
+ mirror.reflector.getVirtualCamera=camera=>{const virtual=getCamera(camera);virtual.layers.enable(31);return virtual};
+ return mirror;
+}
 
 // Terrain retains its survey coordinates and elevations independently of bridge
 // mesh display modes, selection indices, and measurements.
@@ -7,11 +54,28 @@ export async function createTerrainBasemap({scene,renderer,camera,controls,inval
  const $=id=>document.getElementById(id),button=$('terrainToggle'),viewButton=$('terrainView'),opacity=$('terrainOpacity'),status=$('terrainStatus');
  const surfaceButton=$('terrainSurface'),shadeButton=$('terrainShade'),pointButton=$('terrainPoints'),detailButton=$('terrainDetail');
  const planButton=$('terrainPlan'),bedButton=$('riverBedToggle'),waterButton=$('riverWaterToggle'),waterOpacity=$('riverWaterOpacity');
- const response=await fetch('./地形底图配准.json?v=9b40aa817348');if(!response.ok)throw new Error('配准文件 HTTP '+response.status);
+ const response=await fetch('./地形底图配准.json?v=14c89545d6f9');if(!response.ok)throw new Error('配准文件 HTTP '+response.status);
  const metadata=await response.json(),root=new T.Group();root.name='测绘地形';
  const plan=new T.Group(),context=new T.Group(),land=new T.Group();plan.name='0m参考面底图';context.name='河道镂空参考底图';land.name='实测点插值陆域地表';root.add(plan,context,land);
  let shown=true,isolated=false,is3D=true,heightColors=true,pointsVisible=false,surface=null,pointCloud=null;
  let features=null,planLand=null,planPonds=null;let river=null,bedMesh=null,waterMesh=null,planWater=null,bedShown=true,waterShown=true;
+ const waterClock=uniform(0);
+ let waterFrame=0,lastWaterFrame=0,softWater=true,pondBatch=null,pondFlatMaterial=null,pondSoftMaterial=null;
+ let flatWaterMaterial=null,softWaterMaterial=null;
+ const waterStyle=document.createElement('button');waterStyle.id='riverWaterStyle';waterStyle.textContent='水面：场景反射';waterStyle.setAttribute('aria-pressed','true');waterButton.after(waterStyle);
+ function animateWater(now){
+  waterFrame=0;
+  if(!softWater||!shown||isolated||!is3D||document.hidden)return;
+  const pondsVisible=pondBatch?.mesh.visible&&features?.group.visible;
+  if(!waterShown&&!pondsVisible)return;
+  if(now-lastWaterFrame>=50){waterClock.value=now/1000;lastWaterFrame=now;invalidate()}
+  waterFrame=requestAnimationFrame(animateWater);
+ }
+ function syncWaterAnimation(){
+  cancelAnimationFrame(waterFrame);waterFrame=0;
+  if(softWater&&shown&&!isolated&&is3D&&!document.hidden&&(waterShown||pondBatch?.mesh.visible))waterFrame=requestAnimationFrame(animateWater);
+ }
+ document.addEventListener('visibilitychange',syncWaterAnimation);
  const suffix=metadata.revision?'?v='+encodeURIComponent(metadata.revision):'';
  const sync=()=>{
   root.visible=shown&&!isolated;features?.sync(shown&&!isolated&&is3D);plan.visible=Boolean(surface)&&(!is3D||!river);context.visible=is3D&&Boolean(surface);land.visible=is3D;pointCloud&&(pointCloud.visible=is3D&&pointsVisible);
@@ -27,6 +91,7 @@ export async function createTerrainBasemap({scene,renderer,camera,controls,inval
   shadeButton.disabled=!surface||!is3D;pointButton.disabled=!surface||!is3D;
   status.textContent=is3D&&surface?`三维地形 · 陆域${surface.observations.length}个测点 · ${river?'设计河床−2.80m · 参考水面＋2.20m':'原始高程'} · 无竖向夸大`:'平面地形 · 0m参考面 · 河道蓝色填充';
   $('terrainLegend').hidden=!is3D||!heightColors||!surface;
+  syncWaterAnimation();
   invalidate();
  };
  const loader=new T.TextureLoader();
@@ -76,7 +141,10 @@ export async function createTerrainBasemap({scene,renderer,camera,controls,inval
    context.add(new T.Mesh(g,plan.children[i].material.clone()));
   }
   bedMesh=new T.Mesh(geometryOf(data.bed),new T.MeshLambertMaterial({color:0xa58a69,side:T.DoubleSide}));bedMesh.name='设计河床 −2.80m';root.add(bedMesh);
-  waterMesh=new T.Mesh(geometryOf(data.water),new T.MeshBasicMaterial({color:0x168dd4,transparent:true,opacity:Number(waterOpacity.value)/100,side:T.FrontSide,depthWrite:false}));waterMesh.name='蓝色水体 · 最高通航参考水位＋2.20m';waterMesh.renderOrder=2;root.add(waterMesh);
+  flatWaterMaterial=new T.MeshBasicMaterial({color:0x168dd4,transparent:true,opacity:Number(waterOpacity.value)/100,side:T.FrontSide,depthWrite:false});
+  const reflection=createRiverReflection(root,scene,data.reference_water_elevation);
+  softWaterMaterial=referenceWaterMaterial(waterClock,Number(waterOpacity.value)/100,1,reflection);
+  waterMesh=new T.Mesh(geometryOf(data.water),softWaterMaterial);waterMesh.name='蓝绿色水面 · 柔和反光 · 参考水位＋2.20m';waterMesh.renderOrder=2;root.add(waterMesh);
   planWater=new T.Mesh(geometryOf(data.plan_water),new T.MeshBasicMaterial({color:0x168dd4,transparent:true,opacity:Number(waterOpacity.value)/100,side:T.DoubleSide,depthWrite:false}));planWater.renderOrder=2;root.add(planWater);
   river=data;status.title=[...surface?.notes||[],...data.notes].join('\n');
  }catch(error){console.warn('河道模型未加载',error);$('terrainNote').textContent='河床与水体加载失败，可刷新重试。'}
@@ -85,7 +153,13 @@ export async function createTerrainBasemap({scene,renderer,camera,controls,inval
  button.onclick=()=>{shown=!shown;sync()};
  surfaceButton.onclick=()=>{beforeFrame();is3D=true;shown=true;sync()};planButton.onclick=()=>{beforeFrame();is3D=false;shown=true;sync()};
  bedButton.onclick=()=>{bedShown=!bedShown;sync()};waterButton.onclick=()=>{waterShown=!waterShown;sync()};
- waterOpacity.oninput=()=>{if(river){waterMesh.material.opacity=Number(waterOpacity.value)/100;planWater.material.opacity=Number(waterOpacity.value)/100;invalidate()}};
+ waterOpacity.oninput=()=>{if(river){for(const material of [flatWaterMaterial,softWaterMaterial,planWater.material])material.opacity=Number(waterOpacity.value)/100;invalidate()}};
+ waterStyle.onclick=()=>{
+  softWater=!softWater;waterStyle.textContent=softWater?'水面：场景反射':'水面：纯色';waterStyle.setAttribute('aria-pressed',String(softWater));
+  if(waterMesh)waterMesh.material=softWater?softWaterMaterial:flatWaterMaterial;
+  if(pondBatch){const previous=pondBatch.mesh.material,next=softWater?pondSoftMaterial:pondFlatMaterial;next.colorWrite=previous.colorWrite;next.depthWrite=previous.depthWrite;pondBatch.mesh.material=next}
+  sync();
+ };
  shadeButton.onclick=()=>{heightColors=!heightColors;for(const m of land.children){m.material.vertexColors=heightColors;m.material.needsUpdate=true}sync()};
  pointButton.onclick=()=>{pointsVisible=!pointsVisible;sync()};
  opacity.oninput=()=>{for(const m of [...plan.children,...context.children,...land.children])m.material.opacity=Number(opacity.value)/100;invalidate()};
@@ -102,6 +176,11 @@ export async function createTerrainBasemap({scene,renderer,camera,controls,inval
  };
  try{
   features=await createSiteFeatures({root,camera,controls,invalidate,beforeFrame:()=>{beforeFrame();shown=true;is3D=true;isolated=false;sync()}});
+  pondBatch=features.batches.get('池塘');
+  if(pondBatch){
+   pondFlatMaterial=pondBatch.mesh.material;pondSoftMaterial=referenceWaterMaterial(waterClock,1,.45);pondSoftMaterial.side=T.DoubleSide;pondSoftMaterial.depthWrite=true;pondBatch.mesh.material=pondSoftMaterial;
+   document.querySelector('input[data-site-kind="池塘"]')?.addEventListener('change',syncWaterAnimation);
+  }
   planLand=new T.Group();planLand.name='平面池塘改陆地';root.add(planLand);
   for(const f of features.data.features.filter(f=>f.kind==='改造陆地')){
    const g=new T.BufferGeometry();g.setAttribute('position',new T.Float32BufferAttribute(f.v.flatMap(([x,y])=>[x,metadata.plan_elevation+.06,-y]),3));g.setIndex(f.f.flat());
