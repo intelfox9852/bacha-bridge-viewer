@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>倾斜摄影 · Three.js 查看器</title>
+<style>
+body{margin:0;overflow:hidden;background:#14212c;color:#e5eef5;font:14px system-ui}canvas{display:block}
+#panel{position:fixed;left:18px;top:18px;max-width:440px;background:#112636ed;padding:16px;border:1px solid #486479;border-radius:9px}h1{font-size:19px;margin:0 0 10px}p{line-height:1.6;margin:9px 0}button,select,a{background:#263e50;color:#e5eef5;border:1px solid #49667b;border-radius:4px;padding:7px;margin:3px;cursor:pointer}a{display:inline-block;text-decoration:none}#menu{position:fixed;right:18px;top:18px}#error{color:#ffb4a4}small{color:#b5cbdc}
+</style>
+<script type="importmap">{"imports":{"three":"./vendor/three.webgpu.js","three/webgpu":"./vendor/three.webgpu.js","three/addons/":"./vendor/oblique-three/examples/jsm/","3d-tiles-renderer/three":"./vendor/oblique-three/tiles/index.three.js"}}</script>
+<section id="panel"><h1>倾斜摄影 · Three.js 查看器</h1><p id="status">正在初始化…</p><p id="datasetNote"></p>
+<button id="full">数据全景</button><button id="near">实景近景</button><label><input id="show" type="checkbox" checked>显示实景</label>
+<label>精度 <select id="quality"><option value="32">流畅</option><option value="16" selected>均衡</option><option value="8">精细</option></select></label>
+<a id="compare" href="./cesium.html">Cesium 对照</a><p id="error" hidden></p>
+<small>左键旋转 · 右键平移 · 滚轮缩放<br>原始3D Tiles按视野加载 · 米制局部坐标</small></section>
+<button id="menu">隐藏菜单</button><script type="module" src="./oblique_three.js"></script></html>
